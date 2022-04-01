@@ -1,0 +1,25 @@
+target/
+.classpath
+.factorypath
+.project
+.settings
+
+**/.externalToolBuilders/*
+dist/
+html-report/
+node/
+node_modules/
+typings/
+coverage/
+**/*.swf
+yarn.lock
+yarn-error.log
+npm-debug.log
+# Editors
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+/bin/
