@@ -1,0 +1,30 @@
+.blog-card-container {
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: whitesmoke;
+  border-radius: 0.5rem;
+  border: solid 1px;
+  width: 80%;
+  padding: 0.5rem;
+}
+
+.hollow-heart {
+  width: 32px;
+  height: 32px;
+}
+
+.hollow-heart-large {
+  width: 40px;
+  height: 40px;
+}
+
+.heart {
+  width: 32px;
+  height: 32px;
+}
+
+.heart-large {
+  width: 40px;
+  height: 40px;
+}
