@@ -1,4 +1,3 @@
-
 <div class="top-layer">
   <span class="cute-font">Dear Laura, this is something for you, hope you like it!</span>
 </div>
@@ -6,20 +5,20 @@
 <div class="middle-layer">
   <clr-tabs>
     <clr-tab>
-      <button clrTabLink>Dashboard</button>
-      <clr-tab-content *clrIfActive>
-        Dashboard content
+      <button clrTabLink>Blog</button>
+      <clr-tab-content *clrIfActive="true">
+        <app-blog-space></app-blog-space>
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
-      <button clrTabLink>Management</button>
-      <clr-tab-content *clrIfActive="true">
+      <button clrTabLink [disabled]="true">Management</button>
+      <clr-tab-content *clrIfActive="false">
         Management content!
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
       <button clrTabLink>Cloud</button>
-      <clr-tab-content *clrIfActive="true">
+      <clr-tab-content *clrIfActive="false">
         Cloud content
       </clr-tab-content>
     </clr-tab>

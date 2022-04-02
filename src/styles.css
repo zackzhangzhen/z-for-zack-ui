@@ -17,7 +17,7 @@
 
 .middle-layer {
   margin: auto;
-  width: 80%;
+  width: 70%;
   /*border-bottom: 3px dotted #73AD21;*/
   padding: 1rem;
 }
@@ -30,4 +30,33 @@
   text-align: center;
 }
 
+.flex-vertical-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
 
+.flex-horizontal-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+  justify-content: right;
+  align-items: center;
+}
+
+.three-rem-tall{
+  height: 3rem;
+}
+
+.center-bottom-border-container {
+  border-bottom: 1px solid lightslategrey;
+  padding: 1rem;
+}
+
+.common-footer {
+  text-align: right;
+}
+
+.white-space-reserve {
+  white-space: pre-wrap;
+}

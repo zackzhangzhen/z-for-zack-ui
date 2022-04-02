@@ -1,1 +1,22 @@
-<p>blog-space works!</p>
+<div class="flex-vertical-container">
+  <div class="blog-card-container" *ngFor="let card of blogCards">
+    <div class="center-bottom-border-container text-center">
+      {{card.title}}
+    </div>
+    <div class="center-bottom-border-container text-left white-space-reserve" >
+      <span ng-bind-html-unsafe="q.CATEGORY">{{card.text}}</span>
+    </div>
+    <div class="common-footer">
+      <div class="flex-horizontal-container three-rem-tall">
+        <a *ngIf="!card.isLiked" (mouseleave)="shrinkLike(card, true)"
+           (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img
+            src="../../../../assets/images/hollow_heart.png" [ngClass]="card.likeClass"/></a>
+        <a *ngIf="card.isLiked" (mouseleave)="shrinkLike(card, true)"
+           (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img
+            src="../../../../assets/images/heart.png" [ngClass]="card.likeClass"/></a> &nbsp;  | {{card.date.toDateString()}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
