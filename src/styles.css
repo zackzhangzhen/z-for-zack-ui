@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+.top-layer {
+  margin: auto;
+  width: 80%;
+  height: 5rem;
+  border-bottom: 1px solid lightslategrey;
+  padding: 2rem;
+  text-align: center;
+}
+
+.cute-font {
+  font-family: "URW Chancery L", cursive;
+  font-weight: bolder;
+  font-size: xxx-large;
+  color: dodgerblue;
+}
+
+.middle-layer {
+  margin: auto;
+  width: 80%;
+  /*border-bottom: 3px dotted #73AD21;*/
+  padding: 1rem;
+}
+
+.footer {
+  margin: auto;
+  width: 80%;
+  padding: 1rem;
+  border-top: 1px solid lightslategrey;
+  text-align: center;
+}
+
+

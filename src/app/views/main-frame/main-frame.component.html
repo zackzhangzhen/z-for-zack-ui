@@ -1,0 +1,39 @@
+
+<div class="top-layer">
+  <span class="cute-font">Dear Laura, this is something for you, hope you like it!</span>
+</div>
+
+<div class="middle-layer">
+  <clr-tabs>
+    <clr-tab>
+      <button clrTabLink>Dashboard</button>
+      <clr-tab-content *clrIfActive>
+        Dashboard content
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button clrTabLink>Management</button>
+      <clr-tab-content *clrIfActive="true">
+        Management content!
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button clrTabLink>Cloud</button>
+      <clr-tab-content *clrIfActive="true">
+        Cloud content
+      </clr-tab-content>
+    </clr-tab>
+  </clr-tabs>
+
+<!--  <clr-alert [clrAlertAppLevel]="true">-->
+<!--    <clr-alert-item>-->
+<!--    <span class="alert-text">-->
+<!--      Congratulations, you have installed Clarity!-->
+<!--    </span>-->
+<!--    </clr-alert-item>-->
+<!--  </clr-alert>-->
+</div>
+
+<div class="footer">
+  Copyright: © Z for Zack Enterprises, Inc. All rights reserved.
+</div>
