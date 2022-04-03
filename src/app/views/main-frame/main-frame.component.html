@@ -1,8 +1,10 @@
-<div class="top-layer">
+<div class="padding-layer">
+</div>
+<div class="top-layer dome-container">
   <span class="cute-font">Dear Laura, this is something for you, hope you like it!</span>
 </div>
 
-<div class="middle-layer">
+<div class="middle-layer teapot-container">
   <clr-tabs>
     <clr-tab>
       <button clrTabLink>Blog</button>
@@ -11,15 +13,33 @@
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
-      <button clrTabLink [disabled]="true">Management</button>
+      <button clrTabLink [disabled]="true">Laura's Shack</button>
       <clr-tab-content *clrIfActive="false">
-        Management content!
+        Laura's Shack
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
-      <button clrTabLink>Cloud</button>
+      <button clrTabLink [disabled]="true">Turtle Soup</button>
       <clr-tab-content *clrIfActive="false">
-        Cloud content
+       Turtle Soup
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button clrTabLink>User Status</button>
+      <clr-tab-content *clrIfActive="false">
+        User Status
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button clrTabLink>Gift</button>
+      <clr-tab-content *clrIfActive="false">
+        Gift
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button clrTabLink [disabled]="true">Admin</button>
+      <clr-tab-content *clrIfActive="false">
+        Admin
       </clr-tab-content>
     </clr-tab>
   </clr-tabs>
@@ -32,7 +52,8 @@
 <!--    </clr-alert-item>-->
 <!--  </clr-alert>-->
 </div>
-
+<div class="padding-layer">
+</div>
 <div class="footer">
   Copyright: © Z for Zack Enterprises, Inc. All rights reserved.
 </div>

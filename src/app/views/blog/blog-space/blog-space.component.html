@@ -1,10 +1,10 @@
-<div class="flex-vertical-container">
+<div class="flex-vertical-container narrow-width">
   <div class="blog-card-container" *ngFor="let card of blogCards">
     <div class="center-bottom-border-container text-center">
       {{card.title}}
     </div>
     <div class="center-bottom-border-container text-left white-space-reserve" >
-      <span ng-bind-html-unsafe="q.CATEGORY">{{card.text}}</span>
+      <span>{{card.text}}</span>
     </div>
     <div class="common-footer">
       <div class="flex-horizontal-container three-rem-tall">
@@ -16,6 +16,9 @@
             src="../../../../assets/images/heart.png" [ngClass]="card.likeClass"/></a> &nbsp;  | {{card.date.toDateString()}}
       </div>
     </div>
+  </div>
+  <div class="text-center">
+    --- <a (click)="getPaginatedBlogCards()">click to see more</a> ---
   </div>
 </div>
 
