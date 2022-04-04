@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MainFrameComponent } from './views/main-frame/main-frame.component';
@@ -23,7 +24,8 @@ import { BlogSpaceComponent } from './views/blog/blog-space/blog-space.component
                 ClarityModule,
                 ClrTabsModule,
                 AppRoutingModule,
-                ClrAlertModule
+                ClrAlertModule,
+                HttpClientModule,
         ],
   providers: [],
   bootstrap: [AppComponent]
