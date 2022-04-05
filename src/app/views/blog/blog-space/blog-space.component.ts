@@ -65,7 +65,7 @@ export class BlogSpaceComponent implements OnInit {
   getPaginatedBlogCards() {
     this.loadingMore = true;
     this.blogService.getBlogs(this.blogPaginator.currentPage + 1, this.blogPaginator.itemsPerPage).
-    pipe(delay(3000)).
+    // pipe(delay(3000)).
     subscribe((page: BlogCard[]) => {
         this.processNewPage(page);
         this.newBlogPageLoading = false;
