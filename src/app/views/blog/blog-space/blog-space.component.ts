@@ -4,6 +4,7 @@ import {LIKE_CLASSES} from "../../../constants/constants";
 import {BlogService} from "../../../services/blog.service";
 import {Paginator} from "../../../models/paginator";
 import {toDateString} from "../../../utils/utils";
+import {delay} from "rxjs";
 
 @Component({
   selector: 'app-blog-space',
@@ -15,6 +16,7 @@ export class BlogSpaceComponent implements OnInit {
   blogCards = [] as BlogCard[];
   blogPaginator = new Paginator<BlogCard>();
   newBlogPageLoading = true;
+  loadingMore = false;
 
   constructor(private blogService: BlogService) {
   }
@@ -61,12 +63,17 @@ export class BlogSpaceComponent implements OnInit {
    * Get the next page of blogs, prefetch one more page when necessary to determine whether there's more to load
    */
   getPaginatedBlogCards() {
-    this.blogService.getBlogs(this.blogPaginator.currentPage + 1, this.blogPaginator.itemsPerPage).subscribe((page: BlogCard[]) => {
-      this.processNewPage(page);
-      this.newBlogPageLoading = false;
-    },
-      error=>{
-      console.log(`failed to fetch blogs: ${error}`)
+    this.loadingMore = true;
+    this.blogService.getBlogs(this.blogPaginator.currentPage + 1, this.blogPaginator.itemsPerPage).
+    pipe(delay(3000)).
+    subscribe((page: BlogCard[]) => {
+        this.processNewPage(page);
+        this.newBlogPageLoading = false;
+        this.loadingMore = false;
+      },
+      error => {
+        console.log(`failed to fetch blogs: ${error}`);
+        this.loadingMore = false;
       }
     );
   }
