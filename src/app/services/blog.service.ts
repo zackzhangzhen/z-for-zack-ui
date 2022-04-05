@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BlogCard} from "../models/blog-card";
 import {HttpClient} from '@angular/common/http';
 import {NODE_JS_BASE_URL} from "../constants/constants";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +75,7 @@ export class BlogService {
     return this.http.get<BlogCard[]>(`${NODE_JS_BASE_URL}blogs?page=${pageNumber}` + `${perPage && `&limit=${perPage}` || ''}`)
   }
 
-  getBlogsMock(pageNumber?: number): BlogCard[] {
-    return this.blogCards;
+  getBlogsMock(pageNumber?: number): Observable<BlogCard[]> {
+    return of(this.blogCards);
   }
 }

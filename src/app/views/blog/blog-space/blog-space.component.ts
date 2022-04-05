@@ -21,7 +21,6 @@ export class BlogSpaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPaginatedBlogCards();
-    let i = "";
   }
 
   private resolveInitialLikeClass(cards: BlogCard[]) {
@@ -65,7 +64,11 @@ export class BlogSpaceComponent implements OnInit {
     this.blogService.getBlogs(this.blogPaginator.currentPage + 1, this.blogPaginator.itemsPerPage).subscribe((page: BlogCard[]) => {
       this.processNewPage(page);
       this.newBlogPageLoading = false;
-    });
+    },
+      error=>{
+      console.log(`failed to fetch blogs: ${error}`)
+      }
+    );
   }
 
   async processNewPage(newPage: BlogCard[]) {

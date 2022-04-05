@@ -5,5 +5,6 @@ export const LIKE_CLASSES = {
         UNLIKED_LARGE: "hollow-heart-large",
 };
 
-export const NODE_JS_BASE_URL = "http://localhost:3600/";
+export const NODE_JS_BASE_URL = "http://192.168.50.150:3600/";
+// export const NODE_JS_BASE_URL = "http://localhost:3600/";
 export const ITEMS_PER_PAGE_DEFAULT = 2;
