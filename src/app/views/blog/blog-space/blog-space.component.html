@@ -20,7 +20,7 @@
   </div>
   <div class="text-center">
     <span *ngIf="this.blogPaginator.moreToLoad">--- <a href="javascript://" (click)="getPaginatedBlogCards()">click to see more</a> ---</span>
-    <span *ngIf="!this.blogPaginator.moreToLoad" style="color: lightgray">--- there's no more to see ---</span>
+    <span *ngIf="!this.blogPaginator.moreToLoad">--- no more to see ---</span>
   </div>
 </div>
 
