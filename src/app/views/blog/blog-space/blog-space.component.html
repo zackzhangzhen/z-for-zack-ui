@@ -1,4 +1,4 @@
-<div class="flex-vertical-container narrow-width">
+<div class="flex-vertical-container narrow-width dummy-relative">
   <div *ngFor="let page of this.blogPaginator.items">
     <div class="blog-card-container" *ngFor="let card of page">
       <div class="center-bottom-border-container text-center">
@@ -19,8 +19,9 @@
     </div>
   </div>
   <div class="text-center">
-    <span *ngIf="this.blogPaginator.moreToLoad">--- <a href="javascript://" (click)="getPaginatedBlogCards()">click to see more</a> ---</span>
-    <span *ngIf="!this.blogPaginator.moreToLoad">--- no more to see ---</span>
+    <span *ngIf="this.blogPaginator.moreToLoad && !this.loadingMore">--- <a href="javascript://" (click)="getPaginatedBlogCards()">click to see more</a> ---</span>
+    <span *ngIf="!this.blogPaginator.moreToLoad && !this.loadingMore">--- no more to see ---</span>
+    <span *ngIf="this.loadingMore" class="spinner spinner-md"></span>
   </div>
 </div>
 

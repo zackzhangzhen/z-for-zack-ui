@@ -1,0 +1,25 @@
+.loading-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.75rem;    /* spinner width is 1.5rem */
+  margin-top: -0.75rem;     /* spinner height is 1.5rem */
+  width: 1.5rem;
+  height: 1.5rem;
+  z-index: 1001;
+}
+
+.shadeStyle {
+  background: rgba(71, 72, 71, 0.82);
+  border-radius: 3px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0px;
+  z-index: 1000;
+}
+
+/*#spinner {*/
+/*  position: initial;*/
+/*}*/
