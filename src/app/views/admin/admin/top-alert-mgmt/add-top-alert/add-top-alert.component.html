@@ -7,10 +7,24 @@
         <tr>
           <td><label for="message">Message: </label></td>
           <td><textarea id="message" [(ngModel)]="alert.message"></textarea></td>
+          <td></td>
         </tr>
         <tr>
           <td><label for="type">Type: </label></td>
-          <td><input id="type" [(ngModel)]="alert.type"/></td>
+          <td><input id="type" [disabled]="true" [(ngModel)]="alert.type"/></td>
+          <td>
+            <clr-dropdown>
+              <button class="btn btn-outline-primary" clrDropdownTrigger>
+               Type
+              </button>
+              <clr-dropdown-menu clrPosition="top" *clrIfOpen >
+                <div aria-label="Dropdown" clrDropdownItem #success (click)="this.alert.type = success.innerText">success</div>
+                <div aria-label="Dropdown" clrDropdownItem #info (click)="this.alert.type = info.innerText">info</div>
+                <div aria-label="Dropdown" clrDropdownItem #warning (click)="this.alert.type = warning.innerText">warning</div>
+                <div aria-label="Dropdown" clrDropdownItem #danger (click)="this.alert.type = danger.innerText">danger</div>
+              </clr-dropdown-menu>
+            </clr-dropdown>
+          </td>
         </tr>
       </table>
   </app-common-modal>

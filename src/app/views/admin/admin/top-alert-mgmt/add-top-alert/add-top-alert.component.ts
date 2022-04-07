@@ -30,5 +30,7 @@ export class AddTopAlertComponent implements OnInit {
     this.alert.date = new Date();
     this.alert.viewed = false;
     this.topAlertService.addTopAlert(this.alert);
+    //reset the model, so next time when the modal is opened again, the inputs won't be populated with the old values
+    this.alert = {} as TopAlert;
   }
 }
