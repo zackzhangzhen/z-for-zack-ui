@@ -14,21 +14,38 @@ export class TopAlertComponent implements OnInit {
   topAlerts : TopAlert[] = [];
 
   private subForOpen: Subscription;
+  private subForClose: Subscription;
 
   constructor(private topAlertService: TopAlertService) { }
 
-  ngOnInit(): void {
-
+  refresh() {
     this.topAlertService.getNewTopAlerts().subscribe((alerts: TopAlert[]) => {
       this.topAlerts = alerts;
     }, error=>{
       console.log(error);
     })
+  }
+
+  ngOnInit(): void {
+
+    this.refresh();
 
     // Observe alertMessage$ and open the Alert component when a message arrives
+
+    // somehow this great line does not work? when debugging, this.addAlertMessage
+    // is even successfully called...had to use the verbose chunk of code instead
+
+    // this.topAlertService.subscribeToTopAlerts(this.addAlertMessage);
     this.subForOpen = this.topAlertService.alertMessage$.subscribe(
-      (alert: TopAlert) => { if (alert) { this.addAlertMessage(alert); } },
+      (alert: TopAlert) => { this.addAlertMessage(alert); },
+      error => console.log(`failed to add top alert: ${error}`),
     );
+
+    this.subForClose = this.topAlertService.closeAlert$.subscribe(
+      () => { this.refresh(); },
+      error => console.log(`failed to close top alert: ${error}`),
+    );
+
   }
 
   public ngOnDestroy(): void {
@@ -40,5 +57,9 @@ export class TopAlertComponent implements OnInit {
       return;
     }
     this.topAlerts.push(alert);
+  }
+
+  onAlertClose($event: boolean, alert: TopAlert) {
+    this.topAlertService.markTopAlertAsViewed(alert);
   }
 }

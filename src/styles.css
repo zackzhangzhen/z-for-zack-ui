@@ -9,6 +9,9 @@ td {
   text-align: left;
 }
 
+.wide-button {
+  width: 120px;
+}
 .top-layer {
   margin: auto;
   width: 70%;
@@ -69,6 +72,12 @@ td {
   width: 70%;
   padding: 1rem;
 }
+
+.margin-auto {
+  margin:auto
+}
+
+
 
 .alert-layer {
   margin: auto;

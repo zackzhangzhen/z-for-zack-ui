@@ -29,14 +29,23 @@ export class TopAlertService {
     this.closeAlert$ = this.closeAlertSource.asObservable();
   }
 
+  subscribeToTopAlerts(callback: (alert: TopAlert)=>void) {
+    this.alertMessage$.subscribe(
+      (alert: TopAlert) => callback(alert),
+      error => console.log(`failed to subscribe to top alerts: ${error}`),
+    )
+  }
+
   getNewTopAlerts(): Observable<TopAlert[]> {
     return this.http.get<TopAlert[]>(`${NODE_JS_BASE_URL}topAlerts`)
   }
 
   addTopAlert(alert: TopAlert) {
     return this.http.post(`${NODE_JS_BASE_URL}topAlerts`, alert).subscribe(
-      response=> {
+      (response: any)=> {
         console.log(`adding top alert succeeded: ${response}`);
+        alert._id = response.id;
+        this.showTopAlert(alert);
       },
       error => {
         console.log(`failed to add top alert: ${error}`);
@@ -44,31 +53,28 @@ export class TopAlertService {
     );
   }
 
-  /**
-   * @param message string to display
-   * @param duration (optional) time in milliseconds to diplay message for, 0 is infinite
-   */
-  public showError(message: string) {
-    this.alertMessageSource.next({ message: message, type: TOP_ALERT_TYPES.error} as TopAlert);
+  patchTopAlert(alert: TopAlert) {
+    this.http.patch(`${NODE_JS_BASE_URL}topAlerts/${alert._id}`, alert).subscribe(
+      response=> {
+        console.log(`modify top alert succeeded: ${response}`);
+        this.closeAlertSource.next({});
+      },
+      error => {
+        console.log(`failed to modify top alert: ${error}`);
+      }
+    );
   }
 
-  /**
-   * @param message message string to display
-   * @param duration (optional) time in milliseconds to diplay message for, 0 is infinite
-   */
-  public showInfo(message: string) {
-    this.alertMessageSource.next({ message: message, type: TOP_ALERT_TYPES.info} as TopAlert);
-  }
-
-  /**
-   * @param message message string to display
-   * @param duration (optional) time in milliseconds to diplay message for, 0 is infinite
-   */
-  public showWarning(message: string) {
-    this.alertMessageSource.next({ message: message, type: TOP_ALERT_TYPES.warning} as TopAlert);
+  markTopAlertAsViewed(alert: TopAlert) {
+    alert.viewed = true;
+    this.patchTopAlert(alert);
   }
 
   public showSuccess(message: string) {
     this.alertMessageSource.next({ message: message, type: TOP_ALERT_TYPES.success} as TopAlert);
+  }
+
+  public showTopAlert(alert: TopAlert) {
+    this.alertMessageSource.next(alert);
   }
 }
