@@ -1,0 +1,9 @@
+<div *ngIf="this.topAlerts && this.topAlerts.length > 0">
+  <ng-container *ngFor="let alert of this.topAlerts">
+    <clr-alert [clrAlertType]="alert.type" [clrAlertAppLevel]="true">
+      <clr-alert-item>
+        <span class="alert-text" [innerHTML]="alert.message"></span>
+      </clr-alert-item>
+    </clr-alert>
+  </ng-container>
+</div>

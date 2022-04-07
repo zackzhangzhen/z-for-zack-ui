@@ -1,0 +1,40 @@
+<div class="flex-vertical-container middle-layer">
+  <button type="button" class="btn btn-sm btn-outline"
+          (click)="openAddTopAlertModal()">
+        Add App Level Alert
+  </button>
+  <button type="button" class="btn btn-sm btn-outline"
+          (click)="openAddTopAlertModal()">
+    Add App Level Alert
+  </button>
+  <!--  <app-add-top-alert></app-add-top-alert>-->
+
+  <app-common-modal
+      [isModalOpened]="dummySwitch" )>
+    <div class="margin-container">
+      <h3 common-modal-title>Add Top Alert</h3>
+      <div>
+        <label for="message">Message: </label>
+        <input id="message" />
+        <label for="message">Type: </label>
+        <input id="type" />
+      </div>
+    </div>
+  </app-common-modal>
+
+<!--  <clr-modal [(clrModalOpen)]="dummySwitch">-->
+<!--    <div class="modal-title">-->
+<!--      <ng-content select="[common-modal-title]"></ng-content>-->
+<!--    </div>-->
+<!--    <div class="modal-body">-->
+<!--      <ng-content></ng-content>-->
+<!--    </div>-->
+<!--    <div class="modal-footer">-->
+<!--      <button type="button" class="btn btn-info-outline"-->
+<!--      >Cancel-->
+<!--      </button>-->
+<!--      <button type="button" class="btn btn-success-outline" >Ok-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </clr-modal>-->
+</div>

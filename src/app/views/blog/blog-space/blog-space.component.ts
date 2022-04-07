@@ -5,6 +5,8 @@ import {BlogService} from "../../../services/blog.service";
 import {Paginator} from "../../../models/paginator";
 import {toDateString} from "../../../utils/utils";
 import {delay} from "rxjs";
+import {AlertService} from "../../../services/alert/alert.service";
+import {TopAlertService} from "../../../services/alert/top-alert.service";
 
 @Component({
   selector: 'app-blog-space',
@@ -18,7 +20,9 @@ export class BlogSpaceComponent implements OnInit {
   newBlogPageLoading = true;
   loadingMore = false;
 
-  constructor(private blogService: BlogService) {
+  constructor(private blogService: BlogService,
+              private alertService: AlertService,
+              private topAlertService: TopAlertService) {
   }
 
   ngOnInit(): void {
@@ -41,6 +45,12 @@ export class BlogSpaceComponent implements OnInit {
 
   flipLike(card: BlogCard) {
     card.liked = !card.liked;
+    if (card.liked) {
+      this.alertService.showSuccess("Yeah, glad you liked it!");
+    } else {
+      this.alertService.showError("What? You unliked it?!")
+    }
+
   }
 
   enlargeLike(card: BlogCard, liked: boolean) {

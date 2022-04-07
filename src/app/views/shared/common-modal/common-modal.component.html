@@ -1,0 +1,32 @@
+<!--<clr-modal [(clrModalOpen)]="modalOpened">-->
+<!--&lt;!&ndash;  <div class="modal-title">&ndash;&gt;-->
+<!--&lt;!&ndash;    <ng-content select="[common-modal-title]"></ng-content>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="modal-body">&ndash;&gt;-->
+<!--&lt;!&ndash;    <ng-content></ng-content>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--  <div class="modal-footer">-->
+<!--    <button type="button" class="btn btn-info-outline" (click)="closeModal(false)">-->
+<!--      Cancel-->
+<!--    </button>-->
+<!--    <button type="button" class="btn btn-success-outline" (click)="closeModal(true)"-->
+<!--            [disabled]="modalSubmitDisabled">Ok-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</clr-modal>-->
+
+<clr-modal>
+  <div class="modal-title">
+    <ng-content select="[common-modal-title]"></ng-content>
+  </div>
+  <div class="modal-body">
+    <ng-content></ng-content>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info-outline"
+    >Cancel
+    </button>
+    <button type="button" class="btn btn-success-outline" >Ok
+    </button>
+  </div>
+</clr-modal>

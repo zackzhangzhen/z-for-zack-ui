@@ -1,0 +1,13 @@
+<div *ngIf="!this.isAlertsAllEmpty()" class="middle-layer square-teapot-container translucent">
+  <ng-container *ngFor="let alertListItem of alertList">
+    <clr-alert *ngIf="alertListItem && alertListItem.messages.length != 0"
+               [clrAlertType]="alertListItem.type.name" [clrAlertClosed]="alertListItem.isClosed"
+               (clrAlertClosedChange)="onAlertClose($event, alertListItem)"
+               [clrAlertSizeSmall]="alertSizeSmall" [clrAlertClosable]="alertClosable">
+      <clr-alert-item *ngFor="let message of alertListItem?.messages" (mouseover)="stopTimer(message)"
+                      (mouseout)="restartTimer(message)">
+        <span class="alert-text" [innerHTML]="message.text"></span>
+      </clr-alert-item>
+    </clr-alert>
+  </ng-container>
+</div>

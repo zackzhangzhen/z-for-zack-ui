@@ -15,11 +15,15 @@
 .dome-container {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  /*border-top: 5px solid lightslategrey;*/
-  /*border-left: 5px solid lightslategrey;*/
-  /*border-right: 5px solid lightslategrey;*/
-  /*border-bottom: 1px solid lightslategrey;*/
   border: 1px solid lightslategrey;
+}
+
+.arch-container {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-top: 1px solid lightslategrey;
+  border-left: 1px solid lightslategrey;
+  border-right: 1px solid lightslategrey;
 }
 
 .teapot-container {
@@ -28,11 +32,18 @@
   border-bottom: 1px solid lightslategrey;
   border-left: 1px solid lightslategrey;
   border-right: 1px solid lightslategrey;
+}
 
-  /*border-bottom: 5px solid lightslategrey;*/
-  /*border-left: 5px solid lightslategrey;*/
-  /*border-right: 5px solid lightslategrey;*/
+.square-teapot-container {
+  border-bottom: 1px solid lightslategrey;
+  border-left: 1px solid lightslategrey;
+  border-right: 1px solid lightslategrey;
+}
 
+.square-container {
+  border: 1px solid lightslategrey;
+  border: 1px solid lightslategrey;
+  border: 1px solid lightslategrey;
 }
 
 .cute-font {
@@ -51,8 +62,12 @@
 .middle-layer {
   margin: auto;
   width: 70%;
-  /*border-bottom: 3px dotted #73AD21;*/
   padding: 1rem;
+}
+
+.alert-layer {
+  margin: auto;
+  width: 70%;
 }
 
 .footer {

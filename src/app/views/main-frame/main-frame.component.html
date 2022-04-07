@@ -1,9 +1,14 @@
+<app-top-alert></app-top-alert>
+
 <div class="padding-layer">
+
 </div>
 <div class="top-layer dome-container translucent">
   <span class="cute-font">Zack's Little Shack</span>
 </div>
-<div  class="middle-layer teapot-container translucent">
+  <app-alert></app-alert>
+
+<div class="middle-layer teapot-container translucent">
   <clr-tabs>
     <clr-tab>
       <button clrTabLink>Blog</button>
@@ -35,16 +40,13 @@
         Gift
       </clr-tab-content>
     </clr-tab>
+    <clr-tab>
+      <button clrTabLink>Admin</button>
+      <clr-tab-content *clrIfActive="false">
+        <app-admin></app-admin>
+      </clr-tab-content>
+    </clr-tab>
   </clr-tabs>
-
-<!--  <clr-alert [clrAlertAppLevel]="true">-->
-<!--    <clr-alert-item>-->
-<!--    <span class="alert-text">-->
-<!--      Congratulations, you have installed Clarity!-->
-<!--    </span>-->
-<!--    </clr-alert-item>-->
-<!--  </clr-alert>-->
-
   <div class="footer ">
     Copyright: © Z for Zack Enterprises, Inc. All rights reserved.
   </div>
