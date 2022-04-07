@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TopAlert} from "../../../../../models/top-alert";
 import {TopAlertService} from "../../../../../services/alert/top-alert.service";
 
@@ -10,7 +10,10 @@ import {TopAlertService} from "../../../../../services/alert/top-alert.service";
 export class AddTopAlertComponent implements OnInit {
 
   alert = {} as TopAlert;
-  isModalOpen = false;
+  @Input()
+  isModalOpened = false;
+  @Output()
+  isModalOpenedChange = new EventEmitter<boolean>();
 
   constructor(private topAlertService: TopAlertService) {
 
@@ -19,7 +22,7 @@ export class AddTopAlertComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  isModalSubmitDisabled(): boolean {
+  isModalSubmitEnabled(): boolean {
     return this.alert && !!this.alert.type && !!this.alert.message;
   }
 

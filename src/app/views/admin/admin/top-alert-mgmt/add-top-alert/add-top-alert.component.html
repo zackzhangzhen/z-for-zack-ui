@@ -1,16 +1,16 @@
-<div class="flex-container">
-  <app-common-modal>
-<!--      [modalSubmitDisabled]="isModalSubmitDisabled()"-->
-<!--      (onModalSubmitted)="addTopAlert()" [modalOpened]="isModalOpen" -->
-    <div class="margin-container">
-      <h3 common-modal-title>Add Top Alert</h3>
-      <div>
-        <label for="message">Message: </label>
-        <input id="message" [(ngModel)]="alert.message"/>
-        <label for="message">Type: </label>
-        <input id="type" [(ngModel)]="alert.type"/>
-      </div>
-    </div>
+  <app-common-modal
+      [modalSubmitDisabled]="!isModalSubmitEnabled()"
+      (onModalSubmitted)="addTopAlert()" [(isModalOpened)]="isModalOpened">
+      <h3 common-modal-title>Add Alert</h3>
+      <br>
+      <table>
+        <tr>
+          <td><label for="message">Message: </label></td>
+          <td><textarea id="message" [(ngModel)]="alert.message"></textarea></td>
+        </tr>
+        <tr>
+          <td><label for="type">Type: </label></td>
+          <td><input id="type" [(ngModel)]="alert.type"/></td>
+        </tr>
+      </table>
   </app-common-modal>
-
-</div>

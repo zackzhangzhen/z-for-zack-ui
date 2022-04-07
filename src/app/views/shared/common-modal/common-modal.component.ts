@@ -7,26 +7,29 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class CommonModalComponent implements OnInit {
 
-  // @Output()
-  // private onModalSubmitted = new EventEmitter<any>();
-  // @Output()
-  // private onModalCanceled = new EventEmitter<any>();
-  // @Input()
-  // modalSubmitDisabled = true;
+  @Output()
+  private onModalSubmitted = new EventEmitter<any>();
+  @Output()
+  private onModalCanceled = new EventEmitter<any>();
+  @Input()
+  modalSubmitDisabled = true;
   @Input()
   isModalOpened = true;
+  @Output()
+  isModalOpenedChange = new EventEmitter<boolean>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  // closeModal(submit: boolean) {
-  //   this.isModalOpened = false;
-  //   if (submit) {
-  //     this.onModalSubmitted.emit();
-  //   } else {
-  //     this.onModalCanceled.emit();
-  //   }
-  // }
+  closeModal(submit: boolean) {
+    this.isModalOpened = false;
+    this.isModalOpenedChange.emit(false);
+    if (submit) {
+      this.onModalSubmitted.emit();
+    } else {
+      this.onModalCanceled.emit();
+    }
+  }
 }

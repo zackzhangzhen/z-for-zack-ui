@@ -8,18 +8,15 @@ import {AddTopAlertComponent} from "./top-alert-mgmt/add-top-alert/add-top-alert
 })
 export class AdminComponent implements OnInit {
 
-  @ViewChild(AddTopAlertComponent, {static: true})
-  private addTopAlertComponent: AddTopAlertComponent;
+  @ViewChild(AddTopAlertComponent)
+  addTopAlertComponent!: AddTopAlertComponent;
 
-  dummySwitch = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
   openAddTopAlertModal() {
-    // this.addTopAlertComponent.isModalOpen = true;
-    this.dummySwitch = !this.dummySwitch;
-    console.log(`dummySwitch: ${this.dummySwitch}`);
+    this.addTopAlertComponent.isModalOpened = true;
   }
 }
