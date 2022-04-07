@@ -17,6 +17,7 @@ import { AdminComponent } from './views/admin/admin/admin.component';
 import { CommonModalComponent } from './views/shared/common-modal/common-modal.component';
 import {FormsModule} from "@angular/forms";
 import { AddTopAlertComponent } from './views/admin/admin/top-alert-mgmt/add-top-alert/add-top-alert.component';
+import { UserBadgeComponent } from './views/user/user-badge/user-badge.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AddTopAlertComponent } from './views/admin/admin/top-alert-mgmt/add-top
     TopAlertComponent,
     AdminComponent,
     CommonModalComponent,
-    AddTopAlertComponent
+    AddTopAlertComponent,
+    UserBadgeComponent
   ],
   imports: [
     BrowserModule,

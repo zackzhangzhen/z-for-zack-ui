@@ -1,4 +1,5 @@
-<clr-modal [(clrModalOpen)]="isModalOpened">
+<clr-modal [(clrModalOpen)]="isModalOpened"
+           [clrModalClosable]="clrModalClosable">
   <div class="modal-title">
     <ng-content select="[common-modal-title]"></ng-content>
   </div>

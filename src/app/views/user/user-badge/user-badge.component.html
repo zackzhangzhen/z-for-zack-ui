@@ -1,0 +1,25 @@
+<div class="flex-horizontal-container middle-layer square-teapot-container translucent">
+  <span *ngIf="!isSignedIn()"><a href="javascript://" (click)="openModal()">Sign In</a></span>
+  <span *ngIf="isSignedIn()">Welcome, {{user.name}} ! | LVL. {{user.level}}</span>
+</div>
+<app-common-modal
+    [modalSubmitDisabled]="!isModalSubmitEnabled()"
+    (onModalSubmitted)="signIn(user.name, user.password)"
+    (onModalCanceled)="clearUserInfo()" [(isModalOpened)]="isModalOpened" [blockModalClose]="true">
+  <h3 common-modal-title>Add Alert</h3>
+  <br>
+  <table>
+    <tr>
+      <td><label for="name">Nickname: </label></td>
+      <td><input id="name" [(ngModel)]="user.name"/></td>
+    </tr>
+    <tr>
+      <td><label for="pwd">Password: </label></td>
+      <td><input type="password" id="pwd" minlength="8" [(ngModel)]="user.password"></td>
+    </tr>
+    <tr>
+      <td><label for="confirm">Confirm Password: </label></td>
+      <td><input type="password" id="confirm" [(ngModel)]="confirmPwd"></td>
+    </tr>
+  </table>
+</app-common-modal>
