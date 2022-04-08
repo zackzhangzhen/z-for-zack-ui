@@ -5,6 +5,7 @@ import {isObjectNullOrEmpty} from "../../../utils/utils";
 import {COOKIE_NAME_USER_ID, USER_PWD_MIN_LENGTH} from "../../../constants/constants";
 import {Observable, Subject, Subscription} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
+import {ClientService} from "../../../services/client/client.service";
 
 @Component({
   selector: 'app-user-badge',
@@ -27,7 +28,8 @@ export class UserBadgeComponent implements OnInit {
   private signUpCongratsSub: Subscription;
 
   constructor(private userService: UserService,
-              private cookieService: CookieService) {
+              private cookieService: CookieService,
+              private clientService: ClientService) {
     this.signUpCongrats$ = this.signUpCongratsSource.asObservable();
     this.signUpCongratsSub = this.signUpCongrats$.subscribe((user:User)=>{this.isSignUpCongratsModalOpened= true});
   }
@@ -174,5 +176,9 @@ export class UserBadgeComponent implements OnInit {
     this.userNameTaken = false;
     this.userService.currentUser = {} as User;
     this.cookieService.delete(COOKIE_NAME_USER_ID);
+  }
+
+  getUserAgentBasedStyle(style1: string, style2: string) {
+    return this.clientService.getUserAgentBasedStyle(style1, style2);
   }
 }

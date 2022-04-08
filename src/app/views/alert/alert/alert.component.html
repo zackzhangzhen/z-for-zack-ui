@@ -1,4 +1,4 @@
-<div *ngIf="!this.isAlertsAllEmpty()" class="middle-layer square-teapot-container translucent">
+<div *ngIf="!this.isAlertsAllEmpty()" [ngClass]="getUserAgentBasedStyle('square-teapot-container translucent', 'middle-layer')">
   <ng-container *ngFor="let alertListItem of alertList">
     <clr-alert *ngIf="alertListItem && alertListItem.messages.length != 0"
                [clrAlertType]="alertListItem.type.name" [clrAlertClosed]="alertListItem.isClosed"

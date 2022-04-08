@@ -1,7 +1,7 @@
 import {Component, Input, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {Alert, AlertService, AlertType} from "../../../services/alert/alert.service";
 import {Subscription} from "rxjs";
-
+import {ClientService} from "../../../services/client/client.service";
 
 interface AlertListItem {
   type: AlertType;
@@ -47,6 +47,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   constructor(
     private appAlertService: AlertService,
     private ngZone: NgZone,
+    private clientService: ClientService
   ) {
   }
 
@@ -233,5 +234,9 @@ export class AlertComponent implements OnInit, OnDestroy {
         this.clearAlertMessagesOnType(i);
       }
     }
+  }
+
+  getUserAgentBasedStyle(style1: string, style2: string) {
+    return this.clientService.getUserAgentBasedStyle(style1, style2);
   }
 }

@@ -1,17 +1,15 @@
 <app-top-alert></app-top-alert>
-
 <div class="padding-layer">
-
 </div>
-<div class="top-layer dome-container translucent">
-  <span class="cute-font">Zack's Little Shack</span>
+<div [ngClass]="getUserAgentBasedStyle('dome-container translucent', 'top-layer')">
+  <span [ngClass]="getUserAgentBasedStyle('','cute-font')">Zack's Little Shack</span>
 </div>
 <app-alert></app-alert>
 <app-user-badge></app-user-badge>
-<div class="flex-horizontal-container middle-layer square-teapot-container translucent">
-{{userAgent}}
-</div>
-<div class="middle-layer teapot-container translucent">
+<!--<div class="text-right middle-layer square-teapot-container translucent">-->
+<!--{{userAgent}}-->
+<!--</div>-->
+<div [ngClass]="getUserAgentBasedStyle('teapot-container translucent', 'middle-layer')"  class="middle-layer teapot-container translucent">
   <clr-tabs>
     <clr-tab>
       <button clrTabLink>Blog</button>

@@ -27,3 +27,11 @@ export function isObjectNullOrEmpty (obj:any){
 
   return false;
 }
+
+export function getUserAgentBasedStyle(style1:string, style2:string, mobile: boolean) {
+  if (mobile){
+    return `${style1} ${style2}-mobile`;
+  }
+
+  return `${style1} ${style2}`;
+}

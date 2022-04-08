@@ -1,14 +1,16 @@
-<div class="flex-horizontal-container middle-layer square-teapot-container translucent">
-  <ng-container *ngIf="!isLoggedIn()">
-    <a href="javascript://" (click)="openLogInModal()">Log In</a>
-    &nbsp;|&nbsp;
-    <a href="javascript://" (click)="openSignUpModal()">Sign Up</a>
-  </ng-container>
-  <ng-container *ngIf="isLoggedIn()">
-    Welcome,&nbsp;<span style="color: darkblue">{{user.name}}</span>!&nbsp;| LVL. <span
-      style="color:red">{{user.level}}</span>&nbsp;|&nbsp;<span><a href="javascript://"
-                                                                         (click)="clearUserInfo()">Sign Out</a></span>
-  </ng-container>
+<div [ngClass]="getUserAgentBasedStyle('text-right square-teapot-container translucent', 'middle-layer')">
+  <div style="margin-right: 12px">
+    <ng-container *ngIf="!isLoggedIn()">
+      <a href="javascript://" (click)="openLogInModal()">Log In</a>
+      &nbsp;|&nbsp;
+      <a href="javascript://" (click)="openSignUpModal()">Sign Up</a>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn()">
+      Welcome,&nbsp;<span style="color: darkblue">{{user.name}}</span>!&nbsp;| LVL. <span
+        style="color:red">{{user.level}}</span>&nbsp;|&nbsp;<span><a href="javascript://"
+                                                                     (click)="clearUserInfo()">Sign Out</a></span>
+    </ng-container>
+  </div>
 </div>
 <app-common-modal
     [modalSubmitDisabled]="!isSignUpModalSubmitEnabled()"

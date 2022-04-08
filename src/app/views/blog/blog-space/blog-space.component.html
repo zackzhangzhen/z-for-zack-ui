@@ -1,4 +1,4 @@
-<div class="flex-vertical-container narrow-width dummy-relative">
+<div [ngClass]="getUserAgentBasedStyle('flex-vertical-container dummy-relative', 'narrow-width')">
   <div *ngFor="let page of this.blogPaginator.items">
     <div class="blog-card-container" *ngFor="let card of page">
       <div class="center-bottom-border-container text-center">
@@ -7,7 +7,7 @@
       <div class="center-bottom-border-container text-left white-space-reserve" [innerHTML]="card.text" >
       </div>
       <div class="common-footer">
-        <div class="flex-horizontal-container three-rem-tall">
+        <div class="three-rem-tall" style="padding: 0.5rem">
           <a *ngIf="!card.liked" (mouseleave)="shrinkLike(card, true)"
              (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img
               src="../../../../assets/images/hollow_heart.png" [ngClass]="card.likeClass"/></a>

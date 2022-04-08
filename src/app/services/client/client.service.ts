@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {getUserAgentBasedStyle} from "../../utils/utils";
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,9 @@ export class ClientService {
 
   getUserAgent(){
     return navigator.userAgent;
+  }
+
+  getUserAgentBasedStyle(style1:string, style2:string) {
+    return getUserAgentBasedStyle(style1, style2, this.isMobileClient());
   }
 }

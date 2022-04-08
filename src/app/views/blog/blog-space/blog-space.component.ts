@@ -7,6 +7,7 @@ import {toDateString} from "../../../utils/utils";
 import {delay} from "rxjs";
 import {AlertService} from "../../../services/alert/alert.service";
 import {TopAlertService} from "../../../services/alert/top-alert.service";
+import {ClientService} from "../../../services/client/client.service";
 
 @Component({
   selector: 'app-blog-space',
@@ -22,7 +23,8 @@ export class BlogSpaceComponent implements OnInit {
 
   constructor(private blogService: BlogService,
               private alertService: AlertService,
-              private topAlertService: TopAlertService) {
+              private topAlertService: TopAlertService,
+              private clientService: ClientService) {
   }
 
   ngOnInit(): void {
@@ -111,5 +113,9 @@ export class BlogSpaceComponent implements OnInit {
 
   getDateString(date: Date): string {
     return toDateString(date);
+  }
+
+  getUserAgentBasedStyle(style1: string, style2: string) {
+    return this.clientService.getUserAgentBasedStyle(style1, style2);
   }
 }

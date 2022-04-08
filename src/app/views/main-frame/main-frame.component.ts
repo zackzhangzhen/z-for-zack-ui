@@ -15,4 +15,8 @@ export class MainFrameComponent implements OnInit {
   ngOnInit(): void {
     this.userAgent = this.clientService.getUserAgent();
   }
+
+  getUserAgentBasedStyle(style1: string, style2: string) {
+    return this.clientService.getUserAgentBasedStyle(style1, style2);
+  }
 }
