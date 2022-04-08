@@ -15,3 +15,15 @@ export function toDateString(date: Date): string {
   }
   return "Not Dated";
 }
+
+export function isObjectNullOrEmpty (obj:any){
+  if (!obj) {
+    return true;
+  }
+
+  if (Object.keys(obj).length === 0) {
+   return true;
+  }
+
+  return false;
+}

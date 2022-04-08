@@ -15,8 +15,12 @@ export class UserService {
 
   }
 
-  signIn(name: string, password: string): Observable<User>{
+  logIn(name: string, password: string): Observable<User>{
     return this.http.get<User>(`${NODE_JS_BASE_URL}users?name=${name}&password=${password}`)
+  }
+
+  create(user: User): Observable<any>{
+    return this.http.post<any>(`${NODE_JS_BASE_URL}users`, user)
   }
 
   getUserById(id: string): Observable<User> {
@@ -28,4 +32,12 @@ export class UserService {
     return this.http.get<User>(`${NODE_JS_BASE_URL}users/${id}`)
   }
 
+  getUserByName(name: string): Observable<User[]> {
+    if (!name){
+      console.error(`invalid name: ${name}`);
+      return of([] as User[]);
+    }
+
+    return this.http.get<User[]>(`${NODE_JS_BASE_URL}users?name=${name}`)
+  }
 }

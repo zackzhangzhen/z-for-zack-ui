@@ -1,12 +1,50 @@
 <div class="flex-horizontal-container middle-layer square-teapot-container translucent">
-  <span *ngIf="!isSignedIn()"><a href="javascript://" (click)="openModal()">Sign In</a></span>
-  <span *ngIf="isSignedIn()">Welcome, {{user.name}} ! | LVL. {{user.level}}</span>
+  <ng-container *ngIf="!isLoggedIn()">
+    <a href="javascript://" (click)="openLogInModal()">Log In</a>
+    &nbsp;|&nbsp;
+    <a href="javascript://" (click)="openSignUpModal()">Sign Up</a>
+  </ng-container>
+  <ng-container *ngIf="isLoggedIn()">
+    Welcome,&nbsp;<span style="color: darkblue">{{user.name}}</span>!&nbsp;| LVL. <span
+      style="color:red">{{user.level}}</span>&nbsp;|&nbsp;<span><a href="javascript://"
+                                                                         (click)="clearUserInfo()">Sign Out</a></span>
+  </ng-container>
 </div>
 <app-common-modal
-    [modalSubmitDisabled]="!isModalSubmitEnabled()"
-    (onModalSubmitted)="signIn(user.name, user.password)"
-    (onModalCanceled)="clearUserInfo()" [(isModalOpened)]="isModalOpened" [blockModalClose]="true">
-  <h3 common-modal-title>Add Alert</h3>
+    [modalSubmitDisabled]="!isSignUpModalSubmitEnabled()"
+    (onModalSubmitted)="signUp(false, false)"
+    (onModalCanceled)="clearUserInfo()" [(isModalOpened)]="isSignUpModalOpened"
+    [blockModalClose]="true">
+  <h3 common-modal-title>Sign Up</h3>
+  <br>
+  <clr-alert *ngIf="showPasswordLengthAlert()"
+             [clrAlertType]="'danger'"
+             [clrAlertSizeSmall]="false" [clrAlertClosable]="false">
+    <clr-alert-item>
+      <span class="alert-text" [innerHTML]="'Password must have at least 8 characters!'"></span>
+    </clr-alert-item>
+  </clr-alert>
+  <clr-alert *ngIf="showPasswordMatchAlert()"
+             [clrAlertType]="'danger'"
+             [clrAlertSizeSmall]="false" [clrAlertClosable]="false">
+    <clr-alert-item>
+      <span class="alert-text" [innerHTML]="'Passwords do not match!'"></span>
+    </clr-alert-item>
+  </clr-alert>
+  <clr-alert *ngIf="this.signUpFailed"
+             [clrAlertType]="'danger'"
+             [clrAlertSizeSmall]="false" [clrAlertClosable]="false">
+    <clr-alert-item>
+      <span class="alert-text" [innerHTML]="'Sign-up failed, please try again!'"></span>
+    </clr-alert-item>
+  </clr-alert>
+  <clr-alert *ngIf="this.userNameTaken"
+             [clrAlertType]="'danger'"
+             [clrAlertSizeSmall]="false" [clrAlertClosable]="false">
+    <clr-alert-item>
+      <span class="alert-text" [innerHTML]="'This nick name is already taken, please use another one.'"></span>
+    </clr-alert-item>
+  </clr-alert>
   <br>
   <table>
     <tr>
@@ -15,11 +53,48 @@
     </tr>
     <tr>
       <td><label for="pwd">Password: </label></td>
-      <td><input type="password" id="pwd" minlength="8" [(ngModel)]="user.password"></td>
+      <td><input type="password" id="pwd" [(ngModel)]="user.password"></td>
     </tr>
     <tr>
       <td><label for="confirm">Confirm Password: </label></td>
       <td><input type="password" id="confirm" [(ngModel)]="confirmPwd"></td>
     </tr>
   </table>
+</app-common-modal>
+
+<app-common-modal
+    [modalSubmitDisabled]="!isLogInModalSubmitEnabled()"
+    (onModalSubmitted)="logIn(user.name, user.password)"
+    (onModalCanceled)="clearUserInfo()" [(isModalOpened)]="isLogInModalOpened" [blockModalClose]="true">
+  <h3 common-modal-title>Log In</h3>
+  <br>
+  <clr-alert *ngIf="this.logInFailed"
+             [clrAlertType]="'danger'"
+             [clrAlertSizeSmall]="false" [clrAlertClosable]="false">
+    <clr-alert-item>
+      <span class="alert-text" [innerHTML]="'Log-in failed, please make sure you entered the correct credential!'"></span>
+    </clr-alert-item>
+  </clr-alert>
+  <br>
+  <table>
+    <tr>
+      <td><label for="logInName">Nickname: </label></td>
+      <td><input id="logInName" [(ngModel)]="user.name"/></td>
+    </tr>
+    <tr>
+      <td><label for="logInPwd">Password: </label></td>
+      <td><input type="password" id="logInPwd" [(ngModel)]="user.password"></td>
+    </tr>
+  </table>
+</app-common-modal>
+
+<app-common-modal
+    [modalSubmitDisabled]="false"
+    [showCancelButton]="false"
+    [(isModalOpened)]="isSignUpCongratsModalOpened">
+  <h3 common-modal-title>Sign-up is successful!</h3>
+  <br>
+  <br>
+  <br>
+  Thanks <span style="color: green">{{user.name}}</span> for patronizing! Enjoy!
 </app-common-modal>

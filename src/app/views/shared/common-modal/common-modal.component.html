@@ -7,7 +7,7 @@
     <ng-content></ng-content>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-info-outline" (click)="closeModal(false)">
+    <button *ngIf="showCancelButton" type="button" class="btn btn-info-outline" (click)="closeModal(false)">
       Cancel
     </button>
     <button type="button" class="btn btn-success-outline" (click)="closeModal(true)"

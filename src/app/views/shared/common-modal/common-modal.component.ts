@@ -21,6 +21,8 @@ export class CommonModalComponent implements OnInit {
   isModalOpenedChange = new EventEmitter<boolean>();
   @Input()
   clrModalClosable = false;
+  @Input()
+  showCancelButton = true;
 
   constructor() { }
 
