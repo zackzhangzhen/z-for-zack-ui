@@ -10,7 +10,7 @@
 <!--{{userAgent}}-->
 <!--</div>-->
 <div [ngClass]="getUserAgentBasedStyle('teapot-container translucent', 'middle-layer')"  class="middle-layer teapot-container translucent">
-  <clr-tabs>
+  <clr-tabs *ngIf="!isMobile()">
     <clr-tab>
       <button clrTabLink>Blog</button>
       <clr-tab-content *clrIfActive="true">
@@ -18,15 +18,15 @@
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
-      <button clrTabLink [disabled]="true">Laura's Shack</button>
+      <button clrTabLink [disabled]="true">Turtle Soup</button>
       <clr-tab-content *clrIfActive="false">
-        Laura's Shack
+        Turtle Soup
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
-      <button clrTabLink [disabled]="true">Turtle Soup</button>
+      <button clrTabLink [disabled]="true">Gauntlet</button>
       <clr-tab-content *clrIfActive="false">
-       Turtle Soup
+        Gauntlet
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
@@ -35,7 +35,7 @@
         User Status
       </clr-tab-content>
     </clr-tab>
-    <clr-tab>
+    <clr-tab >
       <button clrTabLink>Gift</button>
       <clr-tab-content *clrIfActive="false">
         Gift
@@ -48,8 +48,10 @@
       </clr-tab-content>
     </clr-tab>
   </clr-tabs>
-  <div class="footer ">
-    Copyright: © Z for Zack Enterprises, Inc. All rights reserved.
+
+  <router-outlet *ngIf="isMobile()"></router-outlet>
+  <div class="footer">
+    © Z for Zack Enterprises, Inc. All rights reserved.
   </div>
 </div>
 <div class="padding-layer ">

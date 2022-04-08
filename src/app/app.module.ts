@@ -18,6 +18,7 @@ import { CommonModalComponent } from './views/shared/common-modal/common-modal.c
 import {FormsModule} from "@angular/forms";
 import { AddTopAlertComponent } from './views/admin/admin/top-alert-mgmt/add-top-alert/add-top-alert.component';
 import { UserBadgeComponent } from './views/user/user-badge/user-badge.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { UserBadgeComponent } from './views/user/user-badge/user-badge.component
     ClrAlertModule,
     HttpClientModule,
     FormsModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

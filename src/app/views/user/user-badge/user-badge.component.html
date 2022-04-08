@@ -1,5 +1,22 @@
 <div [ngClass]="getUserAgentBasedStyle('text-right square-teapot-container translucent', 'middle-layer')">
   <div style="margin-right: 12px">
+    <ng-container *ngIf="isMobile()">
+      <clr-dropdown>
+        <button class="btn btn-outline-primary" clrDropdownTrigger>
+          Menu
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu clrPosition="top-left">
+          <div aria-label="Dropdown header Action 0" clrDropdownItem
+               (click)="goToTab(MENU_TABS.BLOG)">Blog
+          </div>
+          <div aria-label="Dropdown header Action 0" clrDropdownItem
+               (click)="goToTab(MENU_TABS.ADMIN)">Admin
+          </div>
+        </clr-dropdown-menu>
+        &nbsp;|&nbsp;
+      </clr-dropdown>
+    </ng-container>
     <ng-container *ngIf="!isLoggedIn()">
       <a href="javascript://" (click)="openLogInModal()">Log In</a>
       &nbsp;|&nbsp;

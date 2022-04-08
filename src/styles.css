@@ -116,7 +116,8 @@ td {
 .footer {
   margin: auto;
   width: 95%;
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border-top: 1px solid lightslategrey;
   text-align: center;
 }

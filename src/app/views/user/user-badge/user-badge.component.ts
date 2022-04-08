@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../../services/user/user.service";
 import {User} from "../../../models/user";
 import {isObjectNullOrEmpty} from "../../../utils/utils";
-import {COOKIE_NAME_USER_ID, USER_PWD_MIN_LENGTH} from "../../../constants/constants";
+import {COOKIE_NAME_USER_ID, TABS, USER_PWD_MIN_LENGTH} from "../../../constants/constants";
 import {Observable, Subject, Subscription} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {ClientService} from "../../../services/client/client.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-badge',
@@ -14,6 +15,7 @@ import {ClientService} from "../../../services/client/client.service";
 })
 export class UserBadgeComponent implements OnInit {
 
+  MENU_TABS= TABS;
   user = {} as User;
   confirmPwd = "";
   isSignUpModalOpened = false ;
@@ -29,7 +31,8 @@ export class UserBadgeComponent implements OnInit {
 
   constructor(private userService: UserService,
               private cookieService: CookieService,
-              private clientService: ClientService) {
+              private clientService: ClientService,
+              private router: Router) {
     this.signUpCongrats$ = this.signUpCongratsSource.asObservable();
     this.signUpCongratsSub = this.signUpCongrats$.subscribe((user:User)=>{this.isSignUpCongratsModalOpened= true});
   }
@@ -180,5 +183,17 @@ export class UserBadgeComponent implements OnInit {
 
   getUserAgentBasedStyle(style1: string, style2: string) {
     return this.clientService.getUserAgentBasedStyle(style1, style2);
+  }
+
+  isMobile(){
+    return this.clientService.isMobileClient();
+  }
+
+  goToTab(tab: string) {
+    if (tab === TABS.BLOG) {
+      this.router.navigate(['/blog', {tab: TABS.BLOG}]);
+    } else if (tab == TABS.ADMIN) {
+      this.router.navigate(['/admin', {tab:TABS.ADMIN}]);
+    }
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TABS } from 'src/app/constants/constants';
 import {ClientService} from "../../services/client/client.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-frame',
@@ -8,9 +10,12 @@ import {ClientService} from "../../services/client/client.service";
 })
 export class MainFrameComponent implements OnInit {
 
+
   title = 'Dear Laura';
   userAgent = "";
-  constructor(private clientService: ClientService) { }
+  constructor(private clientService: ClientService) {
+
+  }
 
   ngOnInit(): void {
     this.userAgent = this.clientService.getUserAgent();
@@ -18,5 +23,9 @@ export class MainFrameComponent implements OnInit {
 
   getUserAgentBasedStyle(style1: string, style2: string) {
     return this.clientService.getUserAgentBasedStyle(style1, style2);
+  }
+
+  isMobile() {
+    return this.clientService.isMobileClient();
   }
 }
