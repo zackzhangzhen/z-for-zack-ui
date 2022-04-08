@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../../services/user/user.service";
 import {User} from "../../../models/user";
 import {isObjectNullOrEmpty} from "../../../utils/utils";
-import {USER_PWD_MIN_LENGTH} from "../../../constants/constants";
+import {COOKIE_NAME_USER_ID, USER_PWD_MIN_LENGTH} from "../../../constants/constants";
 import {Observable, Subject, Subscription} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-user-badge',
@@ -25,15 +26,28 @@ export class UserBadgeComponent implements OnInit {
   private signUpCongrats$: Observable<User>;
   private signUpCongratsSub: Subscription;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private cookieService: CookieService) {
     this.signUpCongrats$ = this.signUpCongratsSource.asObservable();
     this.signUpCongratsSub = this.signUpCongrats$.subscribe((user:User)=>{this.isSignUpCongratsModalOpened= true});
   }
 
   ngOnInit(): void {
-    // this.userService.getUserById("").subscribe((user: User)=>{
-    //
-    // })
+    this.getUserFromCookie();
+  }
+
+  getUserFromCookie(){
+    let userId = this.cookieService.get(COOKIE_NAME_USER_ID)
+    if (!userId) {
+      return;
+    }
+    this.userService.getUserById(userId).subscribe((user: User)=>{
+      this.user = user;
+      this.userService.currentUser = user;
+    },
+      (error:any)=>{
+      console.error(error)
+      })
   }
 
   public ngOnDestroy(): void {
@@ -48,6 +62,8 @@ export class UserBadgeComponent implements OnInit {
           this.logInFailed = true;
         } else {
           this.user = user;
+          this.userService.currentUser = user;
+          this.cookieService.set(COOKIE_NAME_USER_ID, this.user._id || "");
           this.logInFailed = false;
           this.isLogInModalOpened = false;
         }
@@ -81,6 +97,7 @@ export class UserBadgeComponent implements OnInit {
   }
 
   addNewUser(vip: boolean, admin: boolean) {
+
     delete this.user._id;
     this.user.vip = vip;
     this.user.admin = admin;
@@ -93,9 +110,11 @@ export class UserBadgeComponent implements OnInit {
           this.signUpFailed = true;
         } else {
           this.user._id = resp._id;
+          this.userService.currentUser = this.user;
           this.signUpFailed = false;
           this.isSignUpModalOpened = false;
           this.signUpCongratsSource.next(this.user);
+          this.cookieService.set(COOKIE_NAME_USER_ID, this.user._id!);
         }
       },
       (error:any) => {
@@ -153,5 +172,7 @@ export class UserBadgeComponent implements OnInit {
     this.logInFailed = false;
     this.signUpFailed = false;
     this.userNameTaken = false;
+    this.userService.currentUser = {} as User;
+    this.cookieService.delete(COOKIE_NAME_USER_ID);
   }
 }
