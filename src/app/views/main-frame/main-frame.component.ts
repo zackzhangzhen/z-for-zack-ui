@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TABS } from 'src/app/constants/constants';
 import {ClientService} from "../../services/client/client.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-frame',
@@ -14,7 +12,6 @@ export class MainFrameComponent implements OnInit {
   title = 'Dear Laura';
   userAgent = "";
   constructor(private clientService: ClientService) {
-
   }
 
   ngOnInit(): void {

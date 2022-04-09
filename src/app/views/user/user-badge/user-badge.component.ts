@@ -190,10 +190,6 @@ export class UserBadgeComponent implements OnInit {
   }
 
   goToTab(tab: string) {
-    if (tab === TABS.BLOG) {
-      this.router.navigate(['/blog', {tab: TABS.BLOG}]);
-    } else if (tab == TABS.ADMIN) {
-      this.router.navigate(['/admin', {tab:TABS.ADMIN}]);
-    }
+    this.router.navigate(['/main'], { queryParams: { tab: tab} });
   }
 }

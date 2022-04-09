@@ -1,0 +1,42 @@
+<clr-tabs *ngIf="!isMobile()">
+  <clr-tab>
+    <button clrTabLink>Blog</button>
+    <clr-tab-content *clrIfActive="isTab(ROUTING_TABS.BLOG)">
+      <app-blog-space></app-blog-space>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Turtle Soup</button>
+    <clr-tab-content *clrIfActive="isTab(ROUTING_TABS.TURTLE_SOUP)">
+      Turtle Soup
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Gauntlet</button>
+    <clr-tab-content *clrIfActive="isTab(ROUTING_TABS.GAUNTLET)">
+      Gauntlet
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>User Status</button>
+    <clr-tab-content *clrIfActive="isTab(ROUTING_TABS.USER_STATUS)">
+      User Status
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab >
+    <button clrTabLink>Gift</button>
+    <clr-tab-content *clrIfActive="isTab(ROUTING_TABS.GIFT)">
+      Gift
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Admin</button>
+    <clr-tab-content *clrIfActive="isTab(ROUTING_TABS.ADMIN)">
+      <app-admin></app-admin>
+    </clr-tab-content>
+  </clr-tab>
+</clr-tabs>
+<ng-container *ngIf="isMobile()">
+  <app-blog-space *ngIf="isTab(ROUTING_TABS.BLOG)"></app-blog-space>
+  <app-admin *ngIf="isTab(ROUTING_TABS.ADMIN)"></app-admin>
+</ng-container>

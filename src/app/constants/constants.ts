@@ -12,5 +12,10 @@ export const USER_PWD_MIN_LENGTH = 8;
 export const COOKIE_NAME_USER_ID = "z_for_zack_user_id";
 export const TABS = {
         BLOG: "blog",
-        ADMIN: "admin"
+        ADMIN: "admin",
+        TURTLE_SOUP: "turtle_soup",
+        GAUNTLET: "gauntlet",
+        USER_STATUS: "user_status",
+        GIFT: "gift",
 }
+export const ROUTING_TABS_PARAM_NAME = "tab";

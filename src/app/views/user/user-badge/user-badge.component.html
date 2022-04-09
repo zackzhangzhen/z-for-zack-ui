@@ -23,7 +23,7 @@
       <a href="javascript://" (click)="openSignUpModal()">Sign Up</a>
     </ng-container>
     <ng-container *ngIf="isLoggedIn()">
-      Welcome,&nbsp;<span style="color: darkblue">{{user.name}}</span>!&nbsp;| LVL. <span
+      Welcome,&nbsp;<a href="javascript://" (click)="goToTab(MENU_TABS.USER_STATUS)">{{user.name}}</a>!&nbsp;| LVL. <span
         style="color:red">{{user.level}}</span>&nbsp;|&nbsp;<span><a href="javascript://"
                                                                      (click)="clearUserInfo()">Sign Out</a></span>
     </ng-container>
