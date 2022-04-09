@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {NODE_JS_BASE_URL} from "../../constants/constants";
 import {User} from "../../models/user";
+import {isObjectNullOrEmpty} from "../../utils/utils";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,9 @@ export class UserService {
     }
 
     return this.http.get<User[]>(`${NODE_JS_BASE_URL}users?name=${name}`)
+  }
+
+  isLoggedIn() {
+    return !isObjectNullOrEmpty(this.currentUser);
   }
 }

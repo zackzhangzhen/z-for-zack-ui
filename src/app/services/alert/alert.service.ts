@@ -8,6 +8,12 @@ export const ALERT_TYPES = {
   success: { idx: 3, name: 'success' },
 };
 
+export const ALERT_CATEGORIES = {
+  VISIT: "visit",
+  BLOG: "blog"
+};
+
+
 export interface AlertType {
   /** Index defines display order of different types */
   idx: number;
@@ -19,10 +25,12 @@ export interface Alert {
   message: string;
   type: AlertType;
   duration: number;
+  category: string;
+  targetId: string;
 }
 
 /** Duration in milliseconds, 0 is infinite */
-export const defaultAlertDuration = 6000; // 15 seconds
+export const DEFAULT_ALERT_DURATION_IN_MILLISECONDS = 2000; // 2 seconds
 
 @Injectable({
   providedIn: 'root'
@@ -46,33 +54,33 @@ export class AlertService {
 
   /**
    * @param message string to display
-   * @param duration (optional) time in milliseconds to diplay message for, 0 is infinite
+   * @param duration (optional) time in milliseconds to display message for, 0 is infinite
    */
-  public showError(message: string, duration: number = defaultAlertDuration) {
-    this.alertMessageSource.next({ message: message, type: ALERT_TYPES.error, duration: duration });
+  public showError(message: string, category: string, targetId: string, duration: number = DEFAULT_ALERT_DURATION_IN_MILLISECONDS) {
+    this.alertMessageSource.next({ message: message, type: ALERT_TYPES.error, category: category, targetId: targetId, duration: duration });
   }
 
   /**
    * @param message message string to display
-   * @param duration (optional) time in milliseconds to diplay message for, 0 is infinite
+   * @param duration (optional) time in milliseconds to display message for, 0 is infinite
    */
-  public showInfo(message: string, duration: number = defaultAlertDuration) {
-    this.alertMessageSource.next({ message: message, type: ALERT_TYPES.info, duration: duration });
+  public showInfo(message: string, category: string, targetId: string, duration: number = DEFAULT_ALERT_DURATION_IN_MILLISECONDS) {
+    this.alertMessageSource.next({ message: message, type: ALERT_TYPES.info, category: category, targetId: targetId, duration: duration });
   }
 
   /**
    * @param message message string to display
-   * @param duration (optional) time in milliseconds to diplay message for, 0 is infinite
+   * @param duration (optional) time in milliseconds to display message for, 0 is infinite
    */
-  public showWarning(message: string, duration: number = defaultAlertDuration) {
-    this.alertMessageSource.next({ message: message, type: ALERT_TYPES.warning, duration: duration });
+  public showWarning(message: string, category: string, targetId: string, duration: number = DEFAULT_ALERT_DURATION_IN_MILLISECONDS) {
+    this.alertMessageSource.next({ message: message, type: ALERT_TYPES.warning, category: category, targetId: targetId, duration: duration });
   }
 
   /**
    * @param message message string to display
-   * @param duration (optional) time in milliseconds to diplay message for, 0 is infinite
+   * @param duration (optional) time in milliseconds to display message for, 0 is infinite
    */
-  public showSuccess(message: string, duration: number = defaultAlertDuration) {
-    this.alertMessageSource.next({ message: message, type: ALERT_TYPES.success, duration: duration });
+  public showSuccess(message: string, category: string, targetId: string, duration: number = DEFAULT_ALERT_DURATION_IN_MILLISECONDS) {
+    this.alertMessageSource.next({ message: message, type: ALERT_TYPES.success, category: category, targetId: targetId, duration: duration });
   }
 }

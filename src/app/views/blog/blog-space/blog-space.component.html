@@ -4,9 +4,6 @@
       <div class="center-bottom-border-container text-center">
         {{card.title}}
       </div>
-<!--      <div class="text-right middle-layer-mobile square-teapot-container translucent">-->
-<!--        <div class="clr-row middle-layer-mobile">-->
-<!--          <div class="clr-col-lg-6 clr-col-12 middle-layer-mobile">-->
             <a href="javascript:void(0)" class="card clickable">
               <div class="card-img middle-layer-mobile">
                 <img src="../../../assets/images/bg4.jpg" />
@@ -17,20 +14,22 @@
                 </p>
               </div>
             </a>
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
       <div class="center-bottom-border-container text-left white-space-reserve" [innerHTML]="card.text" >
       </div>
       <div class="common-footer">
-        <div class="three-rem-tall" style="padding: 0.5rem">
-          <a *ngIf="!card.liked" (mouseleave)="shrinkLike(card, true)"
-             (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img
-              src="../../../../assets/images/hollow_heart.png" [ngClass]="card.likeClass"/></a>
-          <a *ngIf="card.liked" (mouseleave)="shrinkLike(card, true)"
-             (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img
-              src="../../../../assets/images/heart.png" [ngClass]="card.likeClass"/></a> &nbsp; | {{this.getDateString(card.date)}}
+        <div  style="padding: 0.5rem">
+<!--          <a *ngIf="!card.liked" (mouseleave)="shrinkLike(card, true)"-->
+<!--             (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img-->
+<!--              src="../../../../assets/images/hollow_heart.png" [ngClass]="card.likeClass"/></a>-->
+<!--          <a *ngIf="card.liked" (mouseleave)="shrinkLike(card, true)"-->
+<!--             (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img-->
+<!--              src="../../../../assets/images/heart.png" [ngClass]="card.likeClass"/></a> &nbsp; -->
+          <button *ngIf="!userService.isLoggedIn()" href="javascript://" class="label label-purple">Likes<span class="badge">{{card.likes}}</span></button>
+          <a *ngIf="userService.isLoggedIn() && isLikedByCurrentUser(card)" href="javascript://" class="label label-blue label-success clickable" (click)="this.flipLike(card)">Liked!<span class="badge">{{card.likes}}</span></a>
+          <a *ngIf="userService.isLoggedIn() && !isLikedByCurrentUser(card)" href="javascript://" class="label label-light-blue clickable" (click)="this.flipLike(card)">Like?<span class="badge">{{card.likes}}</span></a>
+          | {{this.getDateString(card.date)}}
         </div>
+        <app-alert [category]="ALERT_KINDS.BLOG" [targetId]="card._id"></app-alert>
       </div>
     </div>
   </div>

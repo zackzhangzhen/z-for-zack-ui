@@ -19,3 +19,8 @@ export const TABS = {
         GIFT: "gift",
 }
 export const ROUTING_TABS_PARAM_NAME = "tab";
+
+export const POINT_SYSTEM = {
+        LIKE: 30,
+        CANCEL_LIKE: -30
+}

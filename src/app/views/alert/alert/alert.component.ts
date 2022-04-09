@@ -1,6 +1,11 @@
 import {Component, Input, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {Alert, AlertService, AlertType} from "../../../services/alert/alert.service";
-import {Subscription} from "rxjs";
+import {
+  Alert,
+  ALERT_CATEGORIES,
+  AlertService,
+  AlertType
+} from "../../../services/alert/alert.service";
+import {filter, Subscription} from "rxjs";
 import {ClientService} from "../../../services/client/client.service";
 
 interface AlertListItem {
@@ -34,6 +39,8 @@ export class AlertComponent implements OnInit, OnDestroy {
   @Input() public alertMultiMessage = true;
   /** Closes the alerts after duration timeout if true, ignores duration timeout otherwise */
   @Input() public alertAutoClose = true;
+  @Input() public category = "";
+  @Input() public targetId= "";
 
   /** Holds all the messages for all alert types */
   public alertList: AlertListItem[] = [];
@@ -52,9 +59,24 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Observe alertMessage$ and open the Alert component when a message arrives
-    this.subForOpen = this.appAlertService.alertMessage$.subscribe(
-      (alert: Alert) => { if (alert) { this.addAlertMessage(alert); } },
+    // Observe alertMessage$ and open the Alert component when a message of a certain category arrives
+    this.subForOpen = this.appAlertService.alertMessage$.pipe(
+      filter((alert: Alert) => {
+        let match = true;
+        if (alert) {
+          if (!!this.category) {
+            match = this.category === alert.category;
+          }
+          if (!!this.targetId) {
+            match = this.targetId === alert.targetId;
+          }
+        }
+        return match;
+      })
+    ).subscribe(
+      (alert: Alert) => {
+        this.addAlertMessage(alert);
+      },
     );
     // Register to observe the closeAlert$ source and close the Alert component
     this.subForClose = this.appAlertService.closeAlert$.subscribe(

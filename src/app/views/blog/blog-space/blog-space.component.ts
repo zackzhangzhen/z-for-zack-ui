@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BlogCard} from "../../../models/blog-card";
-import {LIKE_CLASSES} from "../../../constants/constants";
-import {BlogService} from "../../../services/blog.service";
+import {LIKE_CLASSES, POINT_SYSTEM} from "../../../constants/constants";
+import {BlogService} from "../../../services/blog/blog.service";
 import {Paginator} from "../../../models/paginator";
-import {toDateString} from "../../../utils/utils";
-import {AlertService} from "../../../services/alert/alert.service";
+import {deleteFromArray, processPointsForLike, toDateString} from "../../../utils/utils";
+import {ALERT_CATEGORIES, AlertService} from "../../../services/alert/alert.service";
 import {TopAlertService} from "../../../services/alert/top-alert.service";
 import {ClientService} from "../../../services/client/client.service";
+import {UserService} from "../../../services/user/user.service";
 
 @Component({
   selector: 'app-blog-space',
@@ -19,54 +20,36 @@ export class BlogSpaceComponent implements OnInit {
   blogPaginator = new Paginator<BlogCard>();
   newBlogPageLoading = true;
   loadingMore = false;
+  ALERT_KINDS = ALERT_CATEGORIES;
 
   constructor(private blogService: BlogService,
               private alertService: AlertService,
               private topAlertService: TopAlertService,
-              private clientService: ClientService) {
+              private clientService: ClientService,
+              public userService: UserService) {
   }
 
   ngOnInit(): void {
     this.getPaginatedBlogCards();
   }
 
-  private resolveInitialLikeClass(cards: BlogCard[]) {
-    if(!cards) {
+  flipLike(card: BlogCard) {
+    // guests cannot click
+    if (!this.userService.isLoggedIn()) {
       return;
     }
 
-    for(let card of cards) {
-      if(card.liked) {
-        card.likeClass = LIKE_CLASSES.LIKED_NORMAL;
-      } else {
-        card.likeClass = LIKE_CLASSES.UNLIKED_NORMAL;
-      }
-    }
-  }
-
-  flipLike(card: BlogCard) {
-    card.liked = !card.liked;
-    if (card.liked) {
-      this.alertService.showSuccess("Yeah, glad you liked it!");
+    let user = this.userService.currentUser;
+    if (!this.isLikedByCurrentUser(card)) {
+      this.alertService.showSuccess(`${POINT_SYSTEM.LIKE} points added for liking this post!`, ALERT_CATEGORIES.BLOG, card._id!);
+      card.likedBy.push(user._id!);
+      processPointsForLike(card, user, false);
+      this.blogService.updateLikesForBlogAndUser(card, user);
     } else {
-      this.alertService.showError("What? You unliked it?!")
-    }
-
-  }
-
-  enlargeLike(card: BlogCard, liked: boolean) {
-    if (liked) {
-      card.likeClass = LIKE_CLASSES.LIKED_LARGE;
-    } else {
-      card.likeClass = LIKE_CLASSES.UNLIKED_LARGE;
-    }
-  }
-
-  shrinkLike(card: BlogCard, liked: boolean) {
-    if (liked) {
-      card.likeClass = LIKE_CLASSES.LIKED_NORMAL;
-    } else {
-      card.likeClass = LIKE_CLASSES.UNLIKED_NORMAL;
+      this.alertService.showError(`${-POINT_SYSTEM.CANCEL_LIKE} points deducted for cancelling the like!`, ALERT_CATEGORIES.BLOG, card._id!);
+      deleteFromArray(user._id!, card.likedBy);
+      processPointsForLike(card, user, true);
+      this.blogService.updateLikesForBlogAndUser(card, user);
     }
   }
 
@@ -82,7 +65,7 @@ export class BlogSpaceComponent implements OnInit {
         this.newBlogPageLoading = false;
         this.loadingMore = false;
       },
-      error => {
+      (error:any) => {
         console.log(`failed to fetch blogs: ${error}`);
         this.loadingMore = false;
       }
@@ -91,7 +74,6 @@ export class BlogSpaceComponent implements OnInit {
 
   async processNewPage(newPage: BlogCard[]) {
     let noMorePages;
-    this.resolveInitialLikeClass(newPage);
     if (newPage) {
       this.blogPaginator.addPage(newPage);
       if (newPage.length !== this.blogPaginator.itemsPerPage) {
@@ -116,5 +98,10 @@ export class BlogSpaceComponent implements OnInit {
 
   getUserAgentBasedStyle(style1: string, style2: string) {
     return this.clientService.getUserAgentBasedStyle(style1, style2);
+  }
+
+  isLikedByCurrentUser(card: BlogCard) {
+    let user = this.userService.currentUser;
+    return card.likedBy && card.likedBy.includes(user._id!);
   }
 }
