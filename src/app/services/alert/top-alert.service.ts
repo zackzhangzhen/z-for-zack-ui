@@ -37,11 +37,11 @@ export class TopAlertService {
   }
 
   getNewTopAlerts(): Observable<TopAlert[]> {
-    return this.http.get<TopAlert[]>(`${NODE_JS_BASE_URL}topAlerts`)
+    return this.http.get<TopAlert[]>(`${NODE_JS_BASE_URL}top-alerts`)
   }
 
   addTopAlert(alert: TopAlert) {
-    return this.http.post(`${NODE_JS_BASE_URL}topAlerts`, alert).subscribe(
+    return this.http.post(`${NODE_JS_BASE_URL}top-alerts`, alert).subscribe(
       (response: any)=> {
         console.log(`adding top alert succeeded: ${response}`);
         alert._id = response.id;
@@ -54,7 +54,7 @@ export class TopAlertService {
   }
 
   patchTopAlert(alert: TopAlert) {
-    this.http.patch(`${NODE_JS_BASE_URL}topAlerts/${alert._id}`, alert).subscribe(
+    this.http.patch(`${NODE_JS_BASE_URL}top-alerts/${alert._id}`, alert).subscribe(
       response=> {
         console.log(`modify top alert succeeded: ${response}`);
         this.closeAlertSource.next({});

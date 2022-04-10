@@ -15,11 +15,12 @@ import { AlertComponent } from './views/alert/alert/alert.component';
 import { TopAlertComponent } from './views/alert/top-alert/top-alert.component';
 import { AdminComponent } from './views/admin/admin/admin.component';
 import { CommonModalComponent } from './views/shared/common-modal/common-modal.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AddTopAlertComponent } from './views/admin/admin/top-alert-mgmt/add-top-alert/add-top-alert.component';
 import { UserBadgeComponent } from './views/user/user-badge/user-badge.component';
 import {RouterModule} from "@angular/router";
 import { MainContentComponent } from './views/main-content/main-content/main-content.component';
+import { AddBlogComponent } from './views/blog/add-blog/add-blog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MainContentComponent } from './views/main-content/main-content/main-con
     CommonModalComponent,
     AddTopAlertComponent,
     UserBadgeComponent,
-    MainContentComponent
+    MainContentComponent,
+    AddBlogComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,7 @@ import { MainContentComponent } from './views/main-content/main-content/main-con
     HttpClientModule,
     FormsModule,
     RouterModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

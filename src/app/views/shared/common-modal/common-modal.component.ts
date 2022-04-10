@@ -23,6 +23,8 @@ export class CommonModalComponent implements OnInit {
   clrModalClosable = false;
   @Input()
   showCancelButton = true;
+  @Input()
+  showSubmitButton = true;
 
   constructor() { }
 

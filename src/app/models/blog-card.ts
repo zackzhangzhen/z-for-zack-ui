@@ -4,5 +4,6 @@ export interface BlogCard {
         title: string;
         date: Date;
         likes: number;
+        imagePath: string;
         likedBy: string[];
 }

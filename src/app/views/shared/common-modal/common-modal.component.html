@@ -10,7 +10,7 @@
     <button *ngIf="showCancelButton" type="button" class="btn btn-info-outline" (click)="closeModal(false)">
       Cancel
     </button>
-    <button type="button" class="btn btn-success-outline" (click)="closeModal(true)"
+    <button *ngIf="showSubmitButton" type="button" class="btn btn-success-outline" (click)="closeModal(true)"
             [disabled]="modalSubmitDisabled">Ok
     </button>
   </div>

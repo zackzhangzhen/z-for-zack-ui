@@ -53,4 +53,8 @@ export class BlogService {
         console.error(error);
       });
   }
+
+  postBlog(formData: FormData){
+    return this.http.post(`${NODE_JS_BASE_URL}blogs`, formData)
+  }
 }

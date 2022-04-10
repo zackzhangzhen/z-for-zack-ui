@@ -15,6 +15,7 @@ export class AddTopAlertComponent implements OnInit {
   @Output()
   isModalOpenedChange = new EventEmitter<boolean>();
 
+
   constructor(private topAlertService: TopAlertService) {
 
   }

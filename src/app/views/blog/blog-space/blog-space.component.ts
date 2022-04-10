@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BlogCard} from "../../../models/blog-card";
-import {LIKE_CLASSES, POINT_SYSTEM} from "../../../constants/constants";
+import {BLOG_IMAGE_FOLDER, LIKE_CLASSES, POINT_SYSTEM} from "../../../constants/constants";
 import {BlogService} from "../../../services/blog/blog.service";
 import {Paginator} from "../../../models/paginator";
 import {deleteFromArray, processPointsForLike, toDateString} from "../../../utils/utils";
@@ -21,7 +21,7 @@ export class BlogSpaceComponent implements OnInit {
   newBlogPageLoading = true;
   loadingMore = false;
   ALERT_KINDS = ALERT_CATEGORIES;
-
+  BLOG_IMAGE_DIR = BLOG_IMAGE_FOLDER;
   constructor(private blogService: BlogService,
               private alertService: AlertService,
               private topAlertService: TopAlertService,

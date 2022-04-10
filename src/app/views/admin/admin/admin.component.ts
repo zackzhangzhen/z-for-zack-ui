@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AddTopAlertComponent} from "./top-alert-mgmt/add-top-alert/add-top-alert.component";
+import {AddBlogComponent} from "../../blog/add-blog/add-blog.component";
 
 @Component({
   selector: 'app-admin',
@@ -10,6 +11,8 @@ export class AdminComponent implements OnInit {
 
   @ViewChild(AddTopAlertComponent)
   addTopAlertComponent!: AddTopAlertComponent;
+  @ViewChild(AddBlogComponent)
+  addBlogComponent!: AddBlogComponent;
 
   constructor() { }
 
@@ -19,4 +22,9 @@ export class AdminComponent implements OnInit {
   openAddTopAlertModal() {
     this.addTopAlertComponent.isModalOpened = true;
   }
+
+  openPostBlogModal() {
+    this.addBlogComponent.isModalOpened = true;
+  }
+
 }

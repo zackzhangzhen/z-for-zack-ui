@@ -20,6 +20,8 @@ export const TABS = {
 }
 export const ROUTING_TABS_PARAM_NAME = "tab";
 
+export const BLOG_IMAGE_FOLDER = "../../../../assets/content/blogs/images/";
+
 export const POINT_SYSTEM = {
         LIKE: 30,
         CANCEL_LIKE: -30
