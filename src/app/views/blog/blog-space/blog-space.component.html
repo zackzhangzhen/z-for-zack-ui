@@ -4,9 +4,9 @@
       <div class="center-bottom-border-container text-center">
         {{card.title}}
       </div>
-            <a *ngIf="card.imagePath" href="javascript:void(0)" class="card clickable">
+            <a *ngIf="card.image" href="javascript:void(0)" class="card clickable">
               <div class="card-img middle-layer-mobile">
-                <img src="{{BLOG_IMAGE_DIR}}{{card.imagePath}}" />
+                <img src="{{BLOG_IMAGE_DIR}}{{card.image}}" />
               </div>
               <div class="card-block">
                 <p class="card-text">

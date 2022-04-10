@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NODE_JS_BASE_URL} from "../../../constants/constants";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BlogService} from "../../../services/blog/blog.service";
 @Component({
