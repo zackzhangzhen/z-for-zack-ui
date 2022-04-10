@@ -42,14 +42,14 @@ export class BlogSpaceComponent implements OnInit {
     let user = this.userService.currentUser;
     if (!this.isLikedByCurrentUser(card)) {
       this.alertService.showSuccess(`${POINT_SYSTEM.LIKE} points added for liking this post!`, ALERT_CATEGORIES.BLOG, card._id!);
-      card.likedBy.push(user._id!);
-      processPointsForLike(card, user, false);
-      this.blogService.updateLikesForBlogAndUser(card, user);
+      // card.likedBy.push(user._id!);
+      // processPointsForLike(card, user, false);
+      this.blogService.updateLikesForBlogAndUser(card, user, false);
     } else {
       this.alertService.showError(`${-POINT_SYSTEM.CANCEL_LIKE} points deducted for cancelling the like!`, ALERT_CATEGORIES.BLOG, card._id!);
-      deleteFromArray(user._id!, card.likedBy);
-      processPointsForLike(card, user, true);
-      this.blogService.updateLikesForBlogAndUser(card, user);
+      // deleteFromArray(user._id!, card.likedBy);
+      // processPointsForLike(card, user, true);
+      this.blogService.updateLikesForBlogAndUser(card, user, true);
     }
   }
 
