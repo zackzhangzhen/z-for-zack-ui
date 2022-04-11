@@ -53,10 +53,38 @@ export function processPointsForLike(blog: BlogCard, user: User, cancelLike: boo
   if (cancelLike){
     blog.likes--;
     user.likes--;
-    user.credits+= POINT_SYSTEM.CANCEL_LIKE;
+    user.credits+= POINT_SYSTEM.CANCEL_BLOG_LIKE;
   } else {
     blog.likes++;
     user.likes++;
-    user.credits+= POINT_SYSTEM.LIKE;
+    user.credits+= POINT_SYSTEM.BLOG_LIKE;
   }
+}
+
+export function isVideo(fileName:string) {
+  if (!fileName) {
+    return false;
+  }
+
+  let index = fileName.lastIndexOf('.');
+
+  if (index < 0) {
+    return false;
+  }
+
+  let ext = fileName.substr(index+1);
+
+  if (ext.toUpperCase() === 'MOV'.toUpperCase() ||
+    ext.toUpperCase() === 'MP4'.toUpperCase() ||
+    ext.toUpperCase() === 'WMV'.toUpperCase() ||
+    ext.toUpperCase() === 'AVI'.toUpperCase() ||
+    ext.toUpperCase() === 'MKV'.toUpperCase() ||
+    ext.toUpperCase() === 'FLV'.toUpperCase() ||
+    ext.toUpperCase() === 'MPEG-2'.toUpperCase() ||
+    ext.toUpperCase() === 'AVCHD'.toUpperCase() ||
+    ext.toUpperCase() === 'SWF'.toUpperCase()) {
+    return true;
+  }
+
+  return false;
 }

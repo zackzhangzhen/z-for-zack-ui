@@ -4,38 +4,49 @@
       <div class="center-bottom-border-container text-center">
         {{card.title}}
       </div>
-            <a *ngIf="card.image" href="javascript:void(0)" class="card clickable">
-              <div class="card-img middle-layer-mobile">
-                <img src="{{BLOG_IMAGE_DIR}}{{card.image}}" />
-              </div>
-              <div class="card-block">
-                <p class="card-text">
-<!--                 Wow this is awesome!-->
-                </p>
-              </div>
-            </a>
-      <div class="center-bottom-border-container text-left white-space-reserve" [innerHTML]="card.text" >
+      <a *ngIf="card.image" href="javascript:void(0)" class="card clickable">
+        <div class="card-img middle-layer-mobile" style="text-align: center">
+          <img *ngIf="!isVideo(card.image)" src="{{BLOG_IMAGE_DIR}}{{card.image}}"/>
+          <video *ngIf="isVideo(card.image)" width="80%" height="80%" controls>
+            <source src="{{BLOG_IMAGE_DIR}}{{card.image}}">
+            Your browser does not support HTML video.
+          </video>
+        </div>
+
+        <div class="card-block">
+          <p class="card-text">
+            <!--                 Wow this is awesome!-->
+          </p>
+        </div>
+      </a>
+      <div class="center-bottom-border-container text-left white-space-reserve"
+           [innerHTML]="card.text">
       </div>
       <div class="common-footer">
-        <div  style="padding: 0.5rem">
-<!--          <a *ngIf="!card.liked" (mouseleave)="shrinkLike(card, true)"-->
-<!--             (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img-->
-<!--              src="../../../../assets/images/hollow_heart.png" [ngClass]="card.likeClass"/></a>-->
-<!--          <a *ngIf="card.liked" (mouseleave)="shrinkLike(card, true)"-->
-<!--             (mouseover)="enlargeLike(card, true)" (click)="this.flipLike(card)"> <img-->
-<!--              src="../../../../assets/images/heart.png" [ngClass]="card.likeClass"/></a> &nbsp; -->
-          <button *ngIf="!userService.isLoggedIn()" href="javascript://" class="label label-purple">Likes<span class="badge">{{card.likes}}</span></button>
-          <a *ngIf="userService.isLoggedIn() && isLikedByCurrentUser(card)" href="javascript://" class="label label-blue label-success clickable" (click)="this.flipLike(card)">Liked!<span class="badge">{{card.likes}}</span></a>
-          <a *ngIf="userService.isLoggedIn() && !isLikedByCurrentUser(card)" href="javascript://" class="label label-light-blue clickable" (click)="this.flipLike(card)">Like?<span class="badge">{{card.likes}}</span></a>
+        <div style="padding: 0.5rem">
+          <button *ngIf="!userService.isLoggedIn()" href="javascript://" class="label label-purple">
+            Likes<span class="badge">{{card.likes}}</span></button>
+          <a *ngIf="userService.isLoggedIn() && isLikedByCurrentUser(card)" href="javascript://"
+             class="label label-blue label-success clickable"
+             (click)="this.flipLike(card)">Liked!<span class="badge">{{card.likes}}</span></a>
+          <a *ngIf="userService.isLoggedIn() && !isLikedByCurrentUser(card)" href="javascript://"
+             class="label label-light-blue clickable" (click)="this.flipLike(card)">Like?<span
+              class="badge">{{card.likes}}</span></a>
           | {{this.getDateString(card.date)}}
         </div>
-        <app-alert [category]="ALERT_KINDS.BLOG" [targetId]="card._id"></app-alert>
+        <app-alert [category]="ALERT_KINDS.BLOG_LIKE" [targetId]="card._id"></app-alert>
+        <app-reply-bubble [user]="userService.currentUser" [blog]="card"></app-reply-bubble>
+        <app-reply-panel [blog]="card"></app-reply-panel>
+        <app-reply-bubble *ngIf="card.replies.length > 6" [user]="userService.currentUser"
+                          [blog]="card" [secondReplyBubble]="true"></app-reply-bubble>
+        <app-alert [category]="ALERT_KINDS.BLOG_REPLY" [targetId]="card._id"></app-alert>
       </div>
     </div>
   </div>
   <div class="text-center">
-    <span *ngIf="this.blogPaginator.moreToLoad && !this.loadingMore">--- <a href="javascript://" (click)="getPaginatedBlogCards()">click to see more</a> ---</span>
-    <span *ngIf="!this.blogPaginator.moreToLoad && !this.loadingMore">--- no more to see ---</span>
+    <span *ngIf="this.blogPaginator.moreToLoad && !this.loadingMore">--- <a href="javascript://"
+                                                                            (click)="getPaginatedBlogCards()">click to see more</a> ---</span>
+    <span *ngIf="!this.blogPaginator.moreToLoad && !this.loadingMore" style="color: lightgray">--- bottom reached ---</span>
     <span *ngIf="this.loadingMore" class="spinner spinner-md"></span>
   </div>
 </div>

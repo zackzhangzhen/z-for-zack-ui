@@ -1,0 +1,26 @@
+<ng-container *ngIf="!repliesHidden || repliesHidden && !secondReplyBubble">
+<!--  <a *ngIf="!repliesHidden" href="javascript://" (click)="flipRepliesHiddenStatus()">hide&nbsp;|&nbsp;</a>-->
+<!--  <a *ngIf="repliesHidden" href="javascript://" (click)="flipRepliesHiddenStatus()">show&nbsp;|&nbsp;</a>-->
+  <button *ngIf="!repliesHidden && blog.replies.length > 0" class="btn btn-sm" (click)="flipRepliesHiddenStatus()">Hide</button>
+  <button *ngIf="repliesHidden && blog.replies.length > 0" class="btn btn-sm" (click)="flipRepliesHiddenStatus()">Show</button>
+  <button *ngIf="userService.isLoggedIn()" class="btn btn-sm" (click)="showBubble=true">Reply</button>
+<!--  <clr-signpost>-->
+<!--    <button *ngIf="userService.isLoggedIn()" class="btn btn-link" (mouseover)="showBubble=true"-->
+<!--            (click)="showBubble=true">Reply</button>-->
+<!--    <clr-signpost-content *ngIf="showBubble" [clrPosition]="'bottom-left'">-->
+<!--      <textarea clrTextarea [(ngModel)]="text"></textarea>-->
+<!--      <button class="btn btn-sm" [disabled]="isReplyDisabled()" (click)="submitReply()">REPLY</button>-->
+<!--    </clr-signpost-content>-->
+<!--  </clr-signpost>-->
+    <app-common-modal [(isModalOpened)]="showBubble" [clrModalClosable]="false" [showSubmitButton]="true" [showCancelButton]="true"
+    (onModalSubmitted)="submitReply()" (onModalCanceled)="showBubble=false" [modalSubmitDisabled]="!text">
+      <div class="flex-vertical-container">
+        <clr-textarea-container>
+          <label for="text" class="clr-control-label">Reply</label>
+          <textarea clrTextarea rows="15" cols="30" id="text" placeholder="say something..." [(ngModel)]="text"></textarea>
+        </clr-textarea-container>
+<!--        <textarea clrTextarea [(ngModel)]="text"></textarea>-->
+<!--        <button class="btn btn-sm" (click)="submitReply()">Submit</button>-->
+      </div>
+    </app-common-modal>
+</ng-container>

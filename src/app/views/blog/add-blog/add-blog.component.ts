@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BlogService} from "../../../services/blog/blog.service";
+import {UserService} from "../../../services/user/user.service";
 @Component({
   selector: 'app-add-blog',
   templateUrl: './add-blog.component.html',
@@ -14,7 +15,8 @@ export class AddBlogComponent implements OnInit {
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private blogService: BlogService) {
+              private blogService: BlogService,
+              private userService: UserService) {
     this.form = this.formBuilder.group({
       title: ['', [Validators.required]],
       text: ['', Validators.required],
@@ -36,33 +38,16 @@ export class AddBlogComponent implements OnInit {
     formData.append('title', this.form.get('title')?.value);
     formData.append('text', this.form.get('text')?.value);
     formData.append('image', this.form.get('imageSource')?.value);
-
+    formData.append("authorId", this.userService.currentUser._id!);
 
    this.blogService.postBlog(formData)
-    .subscribe(res => {
+    .subscribe((res:any) => {
       console.log(res);
       this.isModalOpened = false;
     })
   }
 
   onFileChange(event:any) {
-
-    // let reader = new FileReader();
-    //
-    // if(event.target.files && event.target.files.length) {
-    //   const [file] = event.target.files;
-    //   reader.readAsDataURL(file);
-    //
-    //   reader.onload = () => {
-    //     this.form.patchValue({
-    //       imageSource: reader.result
-    //     });
-    //
-    //     // need to run CD since file load runs outside of zone
-    //     // this.cd.markForCheck();
-    //   };
-    // }
-
 
     if (!event) {
       return;

@@ -10,7 +10,8 @@ export const ALERT_TYPES = {
 
 export const ALERT_CATEGORIES = {
   VISIT: "visit",
-  BLOG: "blog"
+  BLOG_LIKE: "blog_like",
+  BLOG_REPLY: "blog_reply",
 };
 
 

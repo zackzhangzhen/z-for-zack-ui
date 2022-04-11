@@ -21,6 +21,8 @@ import { UserBadgeComponent } from './views/user/user-badge/user-badge.component
 import {RouterModule} from "@angular/router";
 import { MainContentComponent } from './views/main-content/main-content/main-content.component';
 import { AddBlogComponent } from './views/blog/add-blog/add-blog.component';
+import { ReplyBubbleComponent } from './views/blog/reply-bubble/reply-bubble.component';
+import { ReplyPanelComponent } from './views/blog/reply-panel/reply-panel.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { AddBlogComponent } from './views/blog/add-blog/add-blog.component';
     AddTopAlertComponent,
     UserBadgeComponent,
     MainContentComponent,
-    AddBlogComponent
+    AddBlogComponent,
+    ReplyBubbleComponent,
+    ReplyPanelComponent
   ],
   imports: [
     BrowserModule,

@@ -68,7 +68,7 @@ export class AlertComponent implements OnInit, OnDestroy {
             match = this.category === alert.category;
           }
           if (!!this.targetId) {
-            match = this.targetId === alert.targetId;
+            match = match && this.targetId === alert.targetId;
           }
         }
         return match;

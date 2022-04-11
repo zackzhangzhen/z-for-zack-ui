@@ -68,7 +68,8 @@ export class UserBadgeComponent implements OnInit {
         } else {
           this.user = user;
           this.userService.currentUser = user;
-          this.cookieService.set(COOKIE_NAME_USER_ID, this.user._id || "");
+
+          this.clientService.setCookie(COOKIE_NAME_USER_ID, this.user._id!);
           this.logInFailed = false;
           this.isLogInModalOpened = false;
         }
@@ -119,7 +120,7 @@ export class UserBadgeComponent implements OnInit {
           this.signUpFailed = false;
           this.isSignUpModalOpened = false;
           this.signUpCongratsSource.next(this.user);
-          this.cookieService.set(COOKIE_NAME_USER_ID, this.user._id!);
+          this.clientService.setCookie(COOKIE_NAME_USER_ID, this.user._id!)
         }
       },
       (error:any) => {

@@ -152,6 +152,13 @@ text-center {
   /*align-items: center;*/
 }
 
+.flex-horizontal-container-no-padding {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end ;
+}
+
+
 .three-rem-tall{
   height: 3rem;
 }
@@ -190,3 +197,62 @@ it as it won't have any effect if the positions (e.g. top, right...) aren't give
   position:relative;
 }
 
+.bubble-container {
+ padding: 1rem;
+}
+
+.bubble-container-mobile {
+  padding: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.bubble-left {
+  position: relative;
+  line-height: 24px;
+  /*width: 60%;*/
+  background-color: pink;
+  border-radius: 40px;
+  padding: 10px 20px;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.bubble-right {
+  position: relative;
+  line-height: 24px;
+  /*width: 60%;*/
+  background-color: palegreen;
+  border-radius: 40px;
+  padding: 10px 20px;
+  text-align: left;
+  margin-left: auto;
+  margin-right: 0;
+  margin-bottom: 1rem;
+}
+
+.bubble-bottom-left:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 24px solid pink;
+  border-right: 24px solid transparent;
+  border-top: 12px solid pink;
+  border-bottom: 20px solid transparent;
+  left: 25px;
+  bottom: -20px;
+}
+
+.bubble-bottom-right:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 24px solid transparent;
+  border-right: 24px solid palegreen;
+  border-top: 12px solid palegreen;
+  border-bottom: 20px solid transparent;
+
+  bottom: -20px;
+  right: 25px;
+}

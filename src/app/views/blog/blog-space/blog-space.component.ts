@@ -3,7 +3,7 @@ import {BlogCard} from "../../../models/blog-card";
 import {BLOG_IMAGE_FOLDER, LIKE_CLASSES, POINT_SYSTEM} from "../../../constants/constants";
 import {BlogService} from "../../../services/blog/blog.service";
 import {Paginator} from "../../../models/paginator";
-import {deleteFromArray, processPointsForLike, toDateString} from "../../../utils/utils";
+import {deleteFromArray, isVideo, processPointsForLike, toDateString} from "../../../utils/utils";
 import {ALERT_CATEGORIES, AlertService} from "../../../services/alert/alert.service";
 import {TopAlertService} from "../../../services/alert/top-alert.service";
 import {ClientService} from "../../../services/client/client.service";
@@ -22,6 +22,7 @@ export class BlogSpaceComponent implements OnInit {
   loadingMore = false;
   ALERT_KINDS = ALERT_CATEGORIES;
   BLOG_IMAGE_DIR = BLOG_IMAGE_FOLDER;
+  repliesHidden = false;
   constructor(private blogService: BlogService,
               private alertService: AlertService,
               private topAlertService: TopAlertService,
@@ -41,12 +42,12 @@ export class BlogSpaceComponent implements OnInit {
 
     let user = this.userService.currentUser;
     if (!this.isLikedByCurrentUser(card)) {
-      this.alertService.showSuccess(`${POINT_SYSTEM.LIKE} points added for liking this post!`, ALERT_CATEGORIES.BLOG, card._id!);
+      this.alertService.showSuccess(`${POINT_SYSTEM.BLOG_LIKE} points added for liking this post!`, ALERT_CATEGORIES.BLOG_LIKE, card._id!);
       // card.likedBy.push(user._id!);
       // processPointsForLike(card, user, false);
       this.blogService.updateLikesForBlogAndUser(card, user, false);
     } else {
-      this.alertService.showError(`${-POINT_SYSTEM.CANCEL_LIKE} points deducted for cancelling the like!`, ALERT_CATEGORIES.BLOG, card._id!);
+      this.alertService.showError(`${-POINT_SYSTEM.CANCEL_BLOG_LIKE} points deducted for cancelling the like!`, ALERT_CATEGORIES.BLOG_LIKE, card._id!);
       // deleteFromArray(user._id!, card.likedBy);
       // processPointsForLike(card, user, true);
       this.blogService.updateLikesForBlogAndUser(card, user, true);
@@ -103,5 +104,13 @@ export class BlogSpaceComponent implements OnInit {
   isLikedByCurrentUser(card: BlogCard) {
     let user = this.userService.currentUser;
     return card.likedBy && card.likedBy.includes(user._id!);
+  }
+
+  isMobile(){
+    return this.clientService.isMobileClient();
+  }
+
+  isVideo(fileName: string) {
+    return isVideo(fileName);
   }
 }

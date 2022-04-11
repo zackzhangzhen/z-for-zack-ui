@@ -5,6 +5,7 @@ export const LIKE_CLASSES = {
         UNLIKED_LARGE: "hollow-heart-large",
 };
 
+export const HOST = "192.168.50.150";
 export const NODE_JS_BASE_URL = "http://192.168.50.150:3600/";
 // export const NODE_JS_BASE_URL = "http://localhost:3600/";
 export const ITEMS_PER_PAGE_DEFAULT = 2;
@@ -22,7 +23,10 @@ export const ROUTING_TABS_PARAM_NAME = "tab";
 
 export const BLOG_IMAGE_FOLDER = "../../../../assets/content/blogs/images/";
 
+export const REPLIES_PER_PAGE = 10;
+
 export const POINT_SYSTEM = {
-        LIKE: 30,
-        CANCEL_LIKE: -30
+        BLOG_LIKE: 30,
+        CANCEL_BLOG_LIKE: -30,
+        BLOG_REPLY: 50,
 }

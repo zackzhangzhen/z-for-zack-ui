@@ -5,7 +5,7 @@
     [blockModalClose]="true" [showSubmitButton]="false" [showCancelButton]="false">
   <h3 common-modal-title>Add Alert</h3>
   <br>
-    <form class="clr-form clr-form-vertical" [formGroup]="form" (ngSubmit)="submit()">
+  <form class="clr-form clr-form-vertical" [formGroup]="form" (ngSubmit)="submit()">
     <clr-input-container>
       <label for="title" class="clr-control-label">Title</label>
       <input clrInput id="title" placeholder="title please..." formControlName="title" type="text"/>
@@ -13,14 +13,16 @@
     </clr-input-container>
     <clr-textarea-container>
       <label for="text" class="clr-control-label">Content</label>
-      <textarea clrTextarea rows="15" cols="30" id="text" placeholder="say something..."  formControlName="text"></textarea>
+      <textarea clrTextarea rows="15" cols="30" id="text" placeholder="say something..."
+                formControlName="text"></textarea>
       <clr-control-error>Content Required</clr-control-error>
     </clr-textarea-container>
-      <div class="clr-form-control">
-        <label for="image" class="clr-control-label">Picture</label>
-        <input id="image" name="image" type="file" formControlName="image" multiple (change)="onFileChange($event)"/>
-      </div>
-      <div class="clr-form-control">
+    <div class="clr-form-control">
+      <label for="image" class="clr-control-label">Picture</label>
+      <input id="image" name="image" type="file" formControlName="image" multiple
+             (change)="onFileChange($event)"/>
+    </div>
+    <div class="clr-form-control">
       <div class="clr-control-container">
         <div class="clr-input-wrapper">
           <input type="submit" value="POST" class="btn" [disabled]="!isModalSubmitEnabled()"/>

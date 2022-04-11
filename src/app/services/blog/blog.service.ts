@@ -2,9 +2,14 @@ import {Injectable} from '@angular/core';
 import {BlogCard} from "../../models/blog-card";
 import {HttpClient} from '@angular/common/http';
 import {NODE_JS_BASE_URL, POINT_SYSTEM} from "../../constants/constants";
-import {Observable, of} from "rxjs";
+import {Observable, of, Subject} from "rxjs";
 import {User} from "../../models/user";
 import {isObjectNullOrEmpty} from "../../utils/utils";
+
+export const REPLY_ACTION = {
+  TOGGLE_REPLIES_PANEL: "toggle",
+  UPDATE_REPLIES: "update",
+}
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +18,33 @@ export class BlogService {
 
   blogsPerPage: number = 5;
 
-  constructor(private http: HttpClient) { }
+  private repliesSource = new Subject<{
+    targetId: string,
+    action: string,
+    data: any}>();
+
+  // Observable streams
+  public replies$: Observable<any>;
+
+  constructor(private http: HttpClient) {
+    this.replies$ = this.repliesSource.asObservable();
+  }
+
+  updatedReplies(targetId: string , replies: string[]){
+    this.repliesSource.next({
+      targetId: targetId,
+      action: REPLY_ACTION.UPDATE_REPLIES,
+      data: replies,
+    });
+  }
+
+  toggleRepliesHiddenStatus(targetId: string , hidden: boolean){
+    this.repliesSource.next({
+      targetId: targetId,
+      action: REPLY_ACTION.TOGGLE_REPLIES_PANEL,
+      data: hidden,
+    });
+  }
 
   getBlogs(pageNumber: number, perPage?: number): Observable<BlogCard[]> {
 
@@ -28,13 +59,13 @@ export class BlogService {
    */
   updateLikesForBlogAndUser(card: BlogCard, user: User, cancelLike: boolean) {
     let userLikesIncrement = 1;
-    let userCreditsIncrement = POINT_SYSTEM.LIKE;
+    let userCreditsIncrement = POINT_SYSTEM.BLOG_LIKE;
     if (cancelLike) {
       userLikesIncrement = -userLikesIncrement;
-      userCreditsIncrement = POINT_SYSTEM.CANCEL_LIKE;
+      userCreditsIncrement = POINT_SYSTEM.CANCEL_BLOG_LIKE;
     }
 
-    return this.http.patch<any>(`${NODE_JS_BASE_URL}blogs/${card._id}?userId=${user._id}&userLikesIncrement=${userLikesIncrement}&userCreditsIncrement=${userCreditsIncrement}`, card).subscribe((result: any) => {
+    return this.http.patch<any>(`${NODE_JS_BASE_URL}blogs/${card._id}/like?userId=${user._id}&userLikesIncrement=${userLikesIncrement}&userCreditsIncrement=${userCreditsIncrement}`, card).subscribe((result: any) => {
 
         if (!isObjectNullOrEmpty(result)) {
 
@@ -56,5 +87,18 @@ export class BlogService {
 
   postBlog(formData: FormData){
     return this.http.post(`${NODE_JS_BASE_URL}blogs`, formData)
+  }
+
+  replyToBlog(user: User, blog: BlogCard, text: string){
+    return this.http.patch(`${NODE_JS_BASE_URL}blogs/${blog._id}/reply`, {
+      userId:user._id,
+      blogId: blog._id,
+      replyText: this.getReplyText(user._id!, user.name, text),
+      userCreditsIncrement: POINT_SYSTEM.BLOG_REPLY,
+    })
+  }
+
+  getReplyText(userId: string, userName: string, text: string) {
+    return `${userId}:${userName}:${new Date().getTime()}:${text}`
   }
 }

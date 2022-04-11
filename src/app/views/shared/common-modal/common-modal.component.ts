@@ -15,10 +15,10 @@ export class CommonModalComponent implements OnInit {
   modalSubmitDisabled = true;
   @Input()
   isModalOpened = true;
-  @Input()
-  blockModalClose = false;
   @Output()
   isModalOpenedChange = new EventEmitter<boolean>();
+  @Input()
+  blockModalClose = false;
   @Input()
   clrModalClosable = false;
   @Input()
