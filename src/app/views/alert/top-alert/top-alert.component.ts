@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TopAlertService} from "../../../services/alert/top-alert.service";
 import {TopAlert} from "../../../models/top-alert";
@@ -8,7 +8,7 @@ import {TopAlert} from "../../../models/top-alert";
   templateUrl: './top-alert.component.html',
   styleUrls: ['./top-alert.component.css']
 })
-export class TopAlertComponent implements OnInit {
+export class TopAlertComponent implements OnInit, OnDestroy {
   /** Closes entire alert stack if true and user clicks on the X */
   @Input() public alertClosable = true;
   topAlerts : TopAlert[] = [];

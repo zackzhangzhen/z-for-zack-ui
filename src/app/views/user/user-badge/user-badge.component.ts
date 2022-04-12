@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from "../../../services/user/user.service";
 import {User} from "../../../models/user";
 import {isObjectNullOrEmpty} from "../../../utils/utils";
@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
   templateUrl: './user-badge.component.html',
   styleUrls: ['./user-badge.component.css']
 })
-export class UserBadgeComponent implements OnInit {
+export class UserBadgeComponent implements OnInit, OnDestroy {
 
   MENU_TABS= TABS;
   user = {} as User;
@@ -69,7 +69,7 @@ export class UserBadgeComponent implements OnInit {
           this.user = user;
           this.userService.currentUser = user;
 
-          this.clientService.setCookie(COOKIE_NAME_USER_ID, this.user._id!);
+          this.clientService.setCookieCustomized(COOKIE_NAME_USER_ID, this.user._id!);
           this.logInFailed = false;
           this.isLogInModalOpened = false;
         }
@@ -120,7 +120,7 @@ export class UserBadgeComponent implements OnInit {
           this.signUpFailed = false;
           this.isSignUpModalOpened = false;
           this.signUpCongratsSource.next(this.user);
-          this.clientService.setCookie(COOKIE_NAME_USER_ID, this.user._id!)
+          this.clientService.setCookieCustomized(COOKIE_NAME_USER_ID, this.user._id!)
         }
       },
       (error:any) => {

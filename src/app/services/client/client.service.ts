@@ -22,14 +22,29 @@ export class ClientService {
     return getUserAgentBasedStyle(style1, style2, this.isMobileClient());
   }
 
-  setCookie(name:string, value:string){
+  /**
+   * For some reason, when using cookieService, when domain is "/" the expiry won't be set so the cookie defaults to session cookie
+   * So have to use setCookieCustomized
+   * @param name
+   * @param value
+   */
+  private setCookie(name:string, value:string){
     let expiry = new Date();
     expiry.setDate(expiry.getDate() + 365*2);
     let domain = HOST;
     let path = '/main';
     let secure = false;
     this.cookieService.set(name, value || "", expiry, path, domain, secure, 'Lax');
-    // this.cookieService.set(name, value || "", expiry, "/", domain, secure);
     this.cookieService.set(name, value);
+  }
+
+  public setCookieCustomized(name: string, value: string) {
+    let d:Date = new Date();
+    d.setTime(d.getTime() + 365 * 24 * 60 * 60 * 1000);
+    let expires:string = `expires=${d.toUTCString()}`;
+    let path = "; path=/";
+    let domain = `; domain=${HOST}`;
+    let cookie =`${name}=${value}; ${expires}${path}${domain}`;
+    document.cookie = cookie;
   }
 }

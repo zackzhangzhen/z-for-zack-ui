@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ClientService} from "../../../services/client/client.service";
 import {BlogCard} from "../../../models/blog-card";
 import {REPLIES_PER_PAGE} from "../../../constants/constants";
@@ -17,7 +17,7 @@ export interface FormattedReply {
   templateUrl: './reply-panel.component.html',
   styleUrls: ['./reply-panel.component.css']
 })
-export class ReplyPanelComponent implements OnInit {
+export class ReplyPanelComponent implements OnInit, OnDestroy {
 
   @Input()
   blog!: BlogCard;

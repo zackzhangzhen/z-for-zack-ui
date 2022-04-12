@@ -4,7 +4,7 @@
       <div class="center-bottom-border-container text-center">
         {{card.title}}
       </div>
-      <a *ngIf="card.image" href="javascript:void(0)" class="card clickable">
+      <a *ngIf="card.image"  class="card">
         <div class="card-img middle-layer-mobile" style="text-align: center">
           <img *ngIf="!isVideo(card.image)" src="{{BLOG_IMAGE_DIR}}{{card.image}}"/>
           <video *ngIf="isVideo(card.image)" width="80%" height="80%" controls>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {User} from "../../../models/user";
 import {BlogCard} from "../../../models/blog-card";
 import {BlogService, REPLY_ACTION} from "../../../services/blog/blog.service";
@@ -13,7 +13,7 @@ import {filter, Subscription} from "rxjs";
   templateUrl: './reply-bubble.component.html',
   styleUrls: ['./reply-bubble.component.css']
 })
-export class ReplyBubbleComponent implements OnInit {
+export class ReplyBubbleComponent implements OnInit, OnDestroy {
 
   text = "";
 
