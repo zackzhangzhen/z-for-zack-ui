@@ -29,13 +29,14 @@
     </ng-container>
   </div>
 </div>
+
 <app-common-modal
-    [modalSubmitDisabled]="!isSignUpModalSubmitEnabled()"
+    [showSubmitButton]="false"
+    [showCancelButton]="false"
     (onModalSubmitted)="signUp(false, false)"
     (onModalCanceled)="clearUserInfo()" [(isModalOpened)]="isSignUpModalOpened"
     [blockModalClose]="true">
   <h3 common-modal-title>Sign Up</h3>
-  <br>
   <clr-alert *ngIf="showPasswordLengthAlert()"
              [clrAlertType]="'danger'"
              [clrAlertSizeSmall]="false" [clrAlertClosable]="false">
@@ -61,24 +62,38 @@
              [clrAlertType]="'danger'"
              [clrAlertSizeSmall]="false" [clrAlertClosable]="false">
     <clr-alert-item>
-      <span class="alert-text" [innerHTML]="'This nick name is already taken, please use another one.'"></span>
+      <span class="alert-text"
+            [innerHTML]="'This nick name is already taken, please use another one.'"></span>
     </clr-alert-item>
   </clr-alert>
-  <br>
-  <table>
-    <tr>
-      <td><label for="name">Nickname: </label></td>
-      <td><input id="name" [(ngModel)]="user.name"/></td>
-    </tr>
-    <tr>
-      <td><label for="pwd">Password: </label></td>
-      <td><input type="password" id="pwd" [(ngModel)]="user.password"></td>
-    </tr>
-    <tr>
-      <td><label for="confirm">Confirm Password: </label></td>
-      <td><input type="password" id="confirm" [(ngModel)]="confirmPwd"></td>
-    </tr>
-  </table>
+  <form class="clr-form clr-form-vertical" [formGroup]="form" (ngSubmit)="signUp(false, false)">
+    <clr-input-container>
+      <label for="nickname" class="clr-control-label">Nickname</label>
+      <input clrInput id="nickname" placeholder="nickname" formControlName="name" type="text"/>
+      <clr-control-error>nickname is required</clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label for="password" class="clr-control-label">Password</label>
+      <input clrInput id="password" placeholder="password" formControlName="password" type="text"/>
+      <clr-control-error>password is required</clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label for="confirmPassword" class="clr-control-label">Confirm Password</label>
+      <input clrInput id="confirmPassword" placeholder="confirm" formControlName="confirmPassword"
+             type="text"/>
+      <clr-control-error>please confirm the password</clr-control-error>
+    </clr-input-container>
+    <div class="clr-form-control">
+      <div class="clr-control-container">
+        <div class="clr-input-wrapper">
+          <input type="submit" value="SUBMIT" class="btn"
+                 [disabled]="!isSignUpModalSubmitEnabled()"/>
+          <input type="button" value="CANCEL" class="btn"
+                 (click)="clearUserInfo()"/>
+        </div>
+      </div>
+    </div>
+  </form>
 </app-common-modal>
 
 <app-common-modal
@@ -94,17 +109,14 @@
       <span class="alert-text" [innerHTML]="'Log-in failed, please make sure you entered the correct credential!'"></span>
     </clr-alert-item>
   </clr-alert>
-  <br>
-  <table>
-    <tr>
-      <td><label for="logInName">Nickname: </label></td>
-      <td><input id="logInName" [(ngModel)]="user.name"/></td>
-    </tr>
-    <tr>
-      <td><label for="logInPwd">Password: </label></td>
-      <td><input type="password" id="logInPwd" [(ngModel)]="user.password"></td>
-    </tr>
-  </table>
+  <clr-input-container>
+    <label for="logInName" class="clr-control-label">Password</label>
+    <input clrInput id="logInName" [(ngModel)]="user.name" placeholder="nickname" type="text"/>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="logInPwd" class="clr-control-label">Password</label>
+    <input clrInput id="logInPwd" [(ngModel)]="user.password" placeholder="password" type="password"/>
+  </clr-input-container>
 </app-common-modal>
 
 <app-common-modal

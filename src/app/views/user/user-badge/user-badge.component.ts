@@ -7,6 +7,7 @@ import {Observable, Subject, Subscription} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {ClientService} from "../../../services/client/client.service";
 import {Router} from "@angular/router";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-user-badge',
@@ -17,13 +18,14 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
 
   MENU_TABS= TABS;
   user = {} as User;
-  confirmPwd = "";
   isSignUpModalOpened = false ;
   isLogInModalOpened = false ;
   isSignUpCongratsModalOpened = false ;
   logInFailed = false;
   signUpFailed = false;
   userNameTaken = false;
+
+  form!: FormGroup;
 
   private signUpCongratsSource = new Subject<User>();
   private signUpCongrats$: Observable<User>;
@@ -32,9 +34,20 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private cookieService: CookieService,
               private clientService: ClientService,
-              private router: Router) {
+              private router: Router,
+              private formBuilder: FormBuilder) {
     this.signUpCongrats$ = this.signUpCongratsSource.asObservable();
     this.signUpCongratsSub = this.signUpCongrats$.subscribe((user:User)=>{this.isSignUpCongratsModalOpened= true});
+
+    this.form = this.createFormGroup();
+  }
+
+  createFormGroup(){
+    return this.formBuilder.group({
+      name: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]]
+    });
   }
 
   ngOnInit(): void {
@@ -83,7 +96,7 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
   signUp(vip: boolean, admin = false ) {
     this.userNameTaken = false;
     this.signUpFailed = false;
-    this.userService.getUserByName(this.user.name).subscribe((users: User[]) => {
+    this.userService.getUserByName(this.form.get("name")?.value).subscribe((users: User[]) => {
         if (!users || users.length == 0) {
           this.addNewUser(vip, admin);
         } else {
@@ -103,19 +116,24 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
   }
 
   addNewUser(vip: boolean, admin: boolean) {
-
     delete this.user._id;
-    this.user.vip = vip;
-    this.user.admin = admin;
-    this.user.credits = 0;
-    this.user.level = 1;
-    this.user.likes = 0;
-    this.userService.create(this.user).subscribe((resp: any) => {
+    let newUser = {
+      name: this.form.get("name")?.value,
+      password: this.form.get("password")?.value,
+      vip: vip,
+      admin: admin,
+      credits: 0,
+      level: 1,
+      likes: 0,
+    } as User;
+
+    this.userService.create(newUser).subscribe((resp: any) => {
         if (!resp || !resp._id) {
           console.error(`creating user failed for ${name}`);
           this.signUpFailed = true;
         } else {
-          this.user._id = resp._id;
+          newUser._id = resp._id;
+          this.user = newUser;
           this.userService.currentUser = this.user;
           this.signUpFailed = false;
           this.isSignUpModalOpened = false;
@@ -137,7 +155,7 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
   }
 
   isSignUpModalSubmitEnabled() {
-    return this.user && this.user.name && this.user.password && this.confirmPwd === this.user.password;
+    return this.form.get("name")?.value && this.form.get("password")?.value && this.form.get("password")?.value === this.form.get("confirmPassword")?.value;
   }
 
   isLogInModalSubmitEnabled() {
@@ -145,23 +163,19 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
   }
 
   showPasswordLengthAlert(){
-    if (isObjectNullOrEmpty(this.user) || !this.user.password) {
+    if (!this.form.get("password")?.touched || !this.form.get("password")?.dirty) {
       return false;
     }
 
-    return this.user.password.length < USER_PWD_MIN_LENGTH;
+    return this.form.get("password")?.value.length < USER_PWD_MIN_LENGTH;
   }
 
   showPasswordMatchAlert(){
-    if (isObjectNullOrEmpty(this.user) || !this.user.password || !this.confirmPwd) {
+    if(!this.form.get("confirmPassword")?.dirty || !this.form.get("confirmPassword")?.touched) {
       return false;
     }
 
-    if (this.user.password === this.confirmPwd) {
-      return false;
-    }
-
-    return true;
+    return this.form.get("confirmPassword")?.value !== this.form.get("password")?.value;;
   }
 
   openSignUpModal() {
@@ -173,13 +187,15 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
   }
 
   clearUserInfo() {
+
+    this.form = this.createFormGroup();
     this.user = {} as User;
-    this.confirmPwd = "";
     this.logInFailed = false;
     this.signUpFailed = false;
     this.userNameTaken = false;
     this.userService.currentUser = {} as User;
     this.cookieService.delete(COOKIE_NAME_USER_ID);
+    this.isSignUpModalOpened = false;
   }
 
   getUserAgentBasedStyle(style1: string, style2: string) {
