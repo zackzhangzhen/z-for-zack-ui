@@ -7,5 +7,5 @@ export interface BlogCard {
         image: string;
         likedBy: string[];
         replies: string[];
-        authorId: string;
+        author: any;
 }

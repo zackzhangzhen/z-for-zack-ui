@@ -88,7 +88,7 @@ export class ReplyPanelComponent implements OnInit, OnDestroy {
       this.formattedReplies.push({
         userName: replierName,
         replyText: replyText,
-        isAuthor: replierId === this.blog.authorId,
+        isAuthor: replierId === this.blog.author?._id,
       });
     }
 

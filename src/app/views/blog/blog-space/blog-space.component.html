@@ -2,7 +2,7 @@
   <div *ngFor="let page of this.blogPaginator.items">
     <div class="blog-card-container" *ngFor="let card of page">
       <div class="center-bottom-border-container text-center">
-        {{card.title}}
+        {{card.title}} <span *ngIf="card.author" style="color: goldenrod"> - {{card.author.name}}</span>
       </div>
       <a *ngIf="card.image"  class="card">
         <div class="card-img middle-layer-mobile" style="text-align: center">
@@ -15,7 +15,7 @@
 
         <div class="card-block">
           <p class="card-text">
-            <!--                 Wow this is awesome!-->
+            <!--Wow this is awesome!-->
           </p>
         </div>
       </a>

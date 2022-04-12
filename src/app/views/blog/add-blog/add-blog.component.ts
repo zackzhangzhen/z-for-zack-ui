@@ -38,7 +38,7 @@ export class AddBlogComponent implements OnInit {
     formData.append('title', this.form.get('title')?.value);
     formData.append('text', this.form.get('text')?.value);
     formData.append('image', this.form.get('imageSource')?.value);
-    formData.append("authorId", this.userService.currentUser._id!);
+    formData.append("author", this.userService.currentUser._id!);
 
    this.blogService.postBlog(formData)
     .subscribe((res:any) => {
