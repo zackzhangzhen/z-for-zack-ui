@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConvoPanelComponent } from './convo-panel.component';
+import { UserStatusComponent } from './user-status.component';
 
-describe('ConvoPanelComponent', () => {
-  let component: ConvoPanelComponent;
-  let fixture: ComponentFixture<ConvoPanelComponent>;
+describe('UserStatusComponent', () => {
+  let component: UserStatusComponent;
+  let fixture: ComponentFixture<UserStatusComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConvoPanelComponent ]
+      declarations: [ UserStatusComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConvoPanelComponent);
+    fixture = TestBed.createComponent(UserStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

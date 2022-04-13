@@ -6,7 +6,6 @@ import {MainContentComponent} from "./views/main-content/main-content/main-conte
 const routes: Routes = [
   { path: 'main', component: MainContentComponent},
   { path: '', redirectTo: '/main', pathMatch: 'full' }
-  // { path: '', component: MainContentComponent}
 ];
 
 @NgModule({

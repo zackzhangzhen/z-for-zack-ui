@@ -18,9 +18,9 @@
     </clr-tab-content>
   </clr-tab>
   <clr-tab>
-    <button clrTabLink>User Status</button>
+    <button clrTabLink>Status</button>
     <clr-tab-content *clrIfActive="isTab(ROUTING_TABS.USER_STATUS)">
-      User Status
+      <app-user-status></app-user-status>
     </clr-tab-content>
   </clr-tab>
   <clr-tab >
@@ -38,5 +38,6 @@
 </clr-tabs>
 <ng-container *ngIf="isMobile()">
   <app-blog-space *ngIf="isTab(ROUTING_TABS.BLOG)"></app-blog-space>
+  <app-user-status *ngIf="isTab(ROUTING_TABS.USER_STATUS)"></app-user-status>
   <app-admin *ngIf="isTab(ROUTING_TABS.ADMIN)"></app-admin>
 </ng-container>

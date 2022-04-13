@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { MainFrameComponent } from './views/main-frame/main-frame.component';
 import {ClrAlertModule, ClrTabsModule} from "@clr/angular";
 import { AppRoutingModule } from './app-routing.module';
-import { ConvoPanelComponent } from './views/convo-panel/convo-panel.component';
 import { BlogSpaceComponent } from './views/blog/blog-space/blog-space.component';
 import { LoadingComponent } from './views/loading/loading/loading.component';
 import { AlertComponent } from './views/alert/alert/alert.component';
@@ -23,12 +22,12 @@ import { MainContentComponent } from './views/main-content/main-content/main-con
 import { AddBlogComponent } from './views/blog/add-blog/add-blog.component';
 import { ReplyBubbleComponent } from './views/blog/reply-bubble/reply-bubble.component';
 import { ReplyPanelComponent } from './views/blog/reply-panel/reply-panel.component';
+import { UserStatusComponent } from './views/user/user-status/user-status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainFrameComponent,
-    ConvoPanelComponent,
     BlogSpaceComponent,
     LoadingComponent,
     AlertComponent,
@@ -40,7 +39,8 @@ import { ReplyPanelComponent } from './views/blog/reply-panel/reply-panel.compon
     MainContentComponent,
     AddBlogComponent,
     ReplyBubbleComponent,
-    ReplyPanelComponent
+    ReplyPanelComponent,
+    UserStatusComponent,
   ],
   imports: [
     BrowserModule,

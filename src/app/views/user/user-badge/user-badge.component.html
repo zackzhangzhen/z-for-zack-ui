@@ -7,10 +7,13 @@
           <clr-icon shape="caret down"></clr-icon>
         </button>
         <clr-dropdown-menu clrPosition="bottom-left">
-          <div aria-label="Dropdown header Action 0" clrDropdownItem
+          <div clrDropdownItem
                (click)="goToTab(MENU_TABS.BLOG)">Blog
           </div>
-          <div aria-label="Dropdown header Action 0" clrDropdownItem
+          <div clrDropdownItem
+               (click)="goToTab(MENU_TABS.USER_STATUS)">Status
+          </div>
+          <div clrDropdownItem
                (click)="goToTab(MENU_TABS.ADMIN)">Admin
           </div>
         </clr-dropdown-menu>

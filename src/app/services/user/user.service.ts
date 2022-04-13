@@ -26,7 +26,7 @@ export class UserService {
 
   getUserById(id: string): Observable<User> {
     if (!id){
-      console.error(`invalid user id: ${id}`);
+      console.error(`user id not given for getUserById`);
       return of({} as User);
     }
 

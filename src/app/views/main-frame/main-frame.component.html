@@ -5,11 +5,14 @@
   <span [ngClass]="getUserAgentBasedStyle('','cute-font')">Zack's Little Shack</span>
 </div>
 <app-user-badge></app-user-badge>
-<div [ngClass]="getUserAgentBasedStyle('teapot-container translucent', 'middle-layer')"  class="middle-layer teapot-container translucent">
-  <router-outlet></router-outlet>
+<div [ngClass]="getUserAgentBasedStyle('teapot-container translucent', 'middle-layer')">
+  <div class="dummy-relative">
+    <router-outlet></router-outlet>
+  </div>
   <div class="footer">
     © Z for Zack Enterprises, Inc. All rights reserved.
   </div>
 </div>
+
 <div class="padding-layer ">
 </div>

@@ -1,0 +1,26 @@
+<div *ngIf="userService.isLoggedIn()" class="flex-vertical-container"
+     style="{{getContainerPadding()}}">
+  <app-loading *ngIf="isLoading"></app-loading>
+  <ng-container *ngIf="!isLoading">
+    <ul *ngIf="timelineItems.length > 0" class="clr-timeline clr-timeline-vertical">
+      <li *ngFor="let item of timelineItems" class="clr-timeline-step">
+        <div *ngIf="!isRankNotReachedAndNotInProgress(item)" class="clr-timeline-step-header"
+             style="min-width: 4.5rem">{{getTimelineItemDate(item)}}</div>
+        <div *ngIf="isRankNotReachedAndNotInProgress(item)" class="clr-timeline-step-header"
+             style="min-width: 4.5rem;color: lightgray">{{getTimelineItemDate(item)}}</div>
+        <cds-icon *ngIf="isRankReached(item)" shape="success-standard"></cds-icon>
+        <clr-spinner *ngIf="isRankInProgress(item)" clrMedium></clr-spinner>
+        <cds-icon *ngIf="isRankNotReachedAndNotInProgress(item)" shape="circle" disabled></cds-icon>
+        <div *ngIf="!isRankNotReachedAndNotInProgress(item)" class="clr-timeline-step-body">
+          <span class="clr-timeline-step-title">{{item.rank.title}}</span>
+          <span class="clr-timeline-step-description">{{item.rank.description}}</span>
+        </div>
+        <div *ngIf="isRankNotReachedAndNotInProgress(item)" class="clr-timeline-step-body">
+          <span class="clr-timeline-step-title" style="color:lightgray">Classified!</span>
+          <span class="clr-timeline-step-description"
+                style="color:lightgray">Level up to reveal!</span>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+</div>
