@@ -61,6 +61,7 @@ export class ReplyBubbleComponent implements OnInit, OnDestroy {
   }
 
   submitReply() {
+    this.blog.isReplyInProgress = true;
     this.blogService.replyToBlog(this.user, this.blog, this.text).subscribe((result: any) => {
       if (!isObjectNullOrEmpty(result) && result.replies) {
         this.blog.replies = result.replies;
@@ -71,6 +72,8 @@ export class ReplyBubbleComponent implements OnInit, OnDestroy {
       }
     }, (error: any) => {
       console.log(error)
+    }).add(()=>{
+      this.blog.isReplyInProgress = false;
     });
     this.showBubble = false;
   }

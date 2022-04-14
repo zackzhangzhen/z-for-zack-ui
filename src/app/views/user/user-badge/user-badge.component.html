@@ -70,6 +70,8 @@
     </clr-alert-item>
   </clr-alert>
   <form class="clr-form clr-form-vertical" [formGroup]="form" (ngSubmit)="signUp(false, false)">
+    <div class="dummy-relative">
+      <app-loading *ngIf="isSignUpInProgress"></app-loading>
     <clr-input-container>
       <label for="nickname" class="clr-control-label">Nickname</label>
       <input clrInput id="nickname" placeholder="nickname" formControlName="name" type="text"/>
@@ -86,6 +88,7 @@
              type="text"/>
       <clr-control-error>please confirm the password</clr-control-error>
     </clr-input-container>
+    </div>
     <div class="clr-form-control">
       <div class="clr-control-container">
         <div class="clr-input-wrapper">
@@ -102,7 +105,8 @@
 <app-common-modal
     [modalSubmitDisabled]="!isLogInModalSubmitEnabled()"
     (onModalSubmitted)="logIn(user.name, user.password)"
-    (onModalCanceled)="clearUserInfo()" [(isModalOpened)]="isLogInModalOpened" [blockModalClose]="true">
+    (onModalCanceled)="clearUserInfo()" [(isModalOpened)]="isLogInModalOpened" [blockModalClose]="true"
+    [isLoading]="isLogInProgress">
   <h3 common-modal-title>Log In</h3>
   <br>
   <clr-alert *ngIf="this.logInFailed"

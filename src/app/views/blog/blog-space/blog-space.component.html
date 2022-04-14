@@ -12,7 +12,6 @@
             Your browser does not support HTML video.
           </video>
         </div>
-
         <div class="card-block">
           <p class="card-text">
             <!--Wow this is awesome!-->
@@ -22,13 +21,15 @@
       <div class="center-bottom-border-container text-left white-space-reserve"
            [innerHTML]="card.text">
       </div>
-      <div class="common-footer">
-        <div style="padding: 0.5rem">
+      <div class="common-footer dummy-relative">
+        <div style="padding: 0.5rem" class="dummy-relative">
+          <app-loading *ngIf="card.isLikeInProgress"></app-loading>
           <button *ngIf="!userService.isLoggedIn()" href="javascript://" class="label label-purple">
             Likes<span class="badge">{{card.likes}}</span></button>
+<!--          <a *ngIf="userService.isLoggedIn() && isLikedByCurrentUser(card)"-->
+<!--             class="label label-blue label-success">Liked!<span class="badge">{{card.likes}}</span></a>-->
           <a *ngIf="userService.isLoggedIn() && isLikedByCurrentUser(card)" href="javascript://"
-             class="label label-blue label-success clickable"
-             (click)="this.flipLike(card)">Liked!<span class="badge">{{card.likes}}</span></a>
+             class="label label-blue label-success clickable" (click)="this.flipLike(card)">Liked!<span class="badge">{{card.likes}}</span></a>
           <a *ngIf="userService.isLoggedIn() && !isLikedByCurrentUser(card)" href="javascript://"
              class="label label-light-blue clickable" (click)="this.flipLike(card)">Like?<span
               class="badge">{{card.likes}}</span></a>

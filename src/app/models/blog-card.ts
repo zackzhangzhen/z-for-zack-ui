@@ -8,4 +8,6 @@ export interface BlogCard {
         likedBy: string[];
         replies: string[];
         author: any;
+        isLikeInProgress: boolean;
+        isReplyInProgress: boolean;
 }

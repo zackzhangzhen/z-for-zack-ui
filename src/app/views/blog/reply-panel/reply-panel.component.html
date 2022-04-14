@@ -1,14 +1,14 @@
+<app-loading *ngIf="blog.isReplyInProgress"></app-loading>
 <ng-container *ngIf="!repliesHidden">
   <div *ngIf="!!formattedReplies && formattedReplies.length > 0"
        [ngClass]="getUserAgentBasedStyle('','bubble-container')">
     <div *ngIf="this.moreToLoad && formattedRepliesToShow.length > 0"
          style="text-align: center;margin-bottom: 1rem">--- <a href="javascript://"
-                                                               (click)="showMoreReplies()">more
-      replies</a> ---
+         (click)="showMoreReplies()">more replies</a> ---
     </div>
     <div *ngIf="!this.moreToLoad && formattedRepliesToShow.length > 0"
          style="text-align: center;margin-bottom: 1rem"><span
-        style="color: lightgray">--- top reached  ---</span></div>
+        style="color: lightgray">--- top reached ---</span></div>
     <ng-container *ngFor="let reply of formattedRepliesToShow">
       <div *ngIf="!reply.isAuthor">
         <table>

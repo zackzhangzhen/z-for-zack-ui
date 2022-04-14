@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {BlogCard} from "../../models/blog-card";
 import {HttpClient} from '@angular/common/http';
 import {NODE_JS_BASE_URL, POINT_SYSTEM} from "../../constants/constants";
-import {Observable, of, Subject} from "rxjs";
+import {delay, Observable, Subject} from "rxjs";
 import {User} from "../../models/user";
 import {isObjectNullOrEmpty} from "../../utils/utils";
+import {ALERT_CATEGORIES, AlertService} from "../alert/alert.service";
 
 export const REPLY_ACTION = {
   TOGGLE_REPLIES_PANEL: "toggle",
@@ -26,7 +27,8 @@ export class BlogService {
   // Observable streams
   public replies$: Observable<any>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private alertService: AlertService) {
     this.replies$ = this.repliesSource.asObservable();
   }
 
@@ -65,8 +67,9 @@ export class BlogService {
       userCreditsIncrement = POINT_SYSTEM.CANCEL_BLOG_LIKE;
     }
 
-    return this.http.patch<any>(`${NODE_JS_BASE_URL}blogs/${card._id}/like?userId=${user._id}&userLikesIncrement=${userLikesIncrement}&userCreditsIncrement=${userCreditsIncrement}`, card).subscribe((result: any) => {
-
+    card.isLikeInProgress = true;
+    return this.http.patch<any>(`${NODE_JS_BASE_URL}blogs/${card._id}/like?userId=${user._id}&userLikesIncrement=${userLikesIncrement}&userCreditsIncrement=${userCreditsIncrement}`, card)
+    .subscribe((result: any) => {
         if (!isObjectNullOrEmpty(result)) {
 
           if (!isObjectNullOrEmpty(result.blog)) {
@@ -78,11 +81,19 @@ export class BlogService {
             user.likes = result.user.likes;
             user.credits = result.user.credits;
           }
+
+          if (cancelLike) {
+            this.alertService.showError(`${-POINT_SYSTEM.CANCEL_BLOG_LIKE} points deducted for cancelling the like!`, ALERT_CATEGORIES.BLOG_LIKE, card._id!);
+          } else {
+            this.alertService.showSuccess(`${POINT_SYSTEM.BLOG_LIKE} points added for liking this post!`, ALERT_CATEGORIES.BLOG_LIKE, card._id!);
+          }
         }
       },
       (error: any) => {
         console.error(error);
-      });
+      }).add(() => {
+      card.isLikeInProgress = false
+    });
   }
 
   postBlog(formData: FormData){

@@ -3,7 +3,7 @@ import {UserService} from "../../../services/user/user.service";
 import {User} from "../../../models/user";
 import {isObjectNullOrEmpty} from "../../../utils/utils";
 import {COOKIE_NAME_USER_ID, TABS, USER_PWD_MIN_LENGTH} from "../../../constants/constants";
-import {Observable, Subject, Subscription} from "rxjs";
+import {delay, Observable, Subject, Subscription} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {ClientService} from "../../../services/client/client.service";
 import {Router} from "@angular/router";
@@ -24,6 +24,8 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
   logInFailed = false;
   signUpFailed = false;
   userNameTaken = false;
+  isSignUpInProgress = false;
+  isLogInProgress = false;
 
   form!: FormGroup;
 
@@ -74,14 +76,15 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
 
   logIn(name: string, pwd: string) {
     this.logInFailed = false;
-    this.userService.logIn(name, pwd).subscribe((user: User) => {
+    this.isLogInProgress = true;
+    this.userService.logIn(name, pwd)
+    .subscribe((user: User) => {
         if (!user) {
           console.error(`no matching user found for ${name}`);
           this.logInFailed = true;
         } else {
           this.user = user;
           this.userService.currentUser = user;
-
           this.clientService.setCookieCustomized(COOKIE_NAME_USER_ID, this.user._id!);
           this.logInFailed = false;
           this.isLogInModalOpened = false;
@@ -90,7 +93,9 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
       (error:any) => {
         console.error(error);
         this.logInFailed = true;
-      })
+      }).add(()=>{
+        this.isLogInProgress = false;
+    })
   }
 
   signUp(vip: boolean, admin = false ) {
@@ -127,7 +132,9 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
       likes: 0,
     } as User;
 
-    this.userService.create(newUser).subscribe((resp: any) => {
+    this.isSignUpInProgress = true;
+    this.userService.create(newUser)
+    .subscribe((resp: any) => {
         if (!resp || !resp._id) {
           console.error(`creating user failed for ${name}`);
           this.signUpFailed = true;
@@ -144,7 +151,9 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
       (error:any) => {
         console.error(error);
         this.signUpFailed = true;
-      })
+      }).add(()=>{
+        this.isSignUpInProgress = false;
+    })
   }
 
   isLoggedIn() {
@@ -155,10 +164,16 @@ export class UserBadgeComponent implements OnInit, OnDestroy {
   }
 
   isSignUpModalSubmitEnabled() {
+    if (this.isSignUpInProgress) {
+      return false;
+    }
     return this.form.get("name")?.value && this.form.get("password")?.value && this.form.get("password")?.value === this.form.get("confirmPassword")?.value;
   }
 
   isLogInModalSubmitEnabled() {
+    if (this.isLogInProgress) {
+      return false;
+    }
     return this.user && this.user.name && this.user.password;
   }
 

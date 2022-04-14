@@ -31,7 +31,7 @@ export class UserStatusComponent implements OnInit {
   ngOnInit(): void {
     if (this.userService.isLoggedIn()) {
       this.isLoading = true;
-      this.levelService.getLevelsByUserId(this.userService.currentUser._id).subscribe((levels:Level[])=>{
+      this.levelService.getLevelsByUserId(this.userService.currentUser._id!).subscribe((levels:Level[])=>{
         this.levels = levels;
 
         this.levelService.getRanks().subscribe((ranks: Rank[])=>{

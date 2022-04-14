@@ -25,6 +25,8 @@ export class CommonModalComponent implements OnInit {
   showCancelButton = true;
   @Input()
   showSubmitButton = true;
+  @Input()
+  isLoading = false;
 
   constructor() { }
 

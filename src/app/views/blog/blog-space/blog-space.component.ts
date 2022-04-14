@@ -39,17 +39,10 @@ export class BlogSpaceComponent implements OnInit {
     if (!this.userService.isLoggedIn()) {
       return;
     }
-
     let user = this.userService.currentUser;
     if (!this.isLikedByCurrentUser(card)) {
-      this.alertService.showSuccess(`${POINT_SYSTEM.BLOG_LIKE} points added for liking this post!`, ALERT_CATEGORIES.BLOG_LIKE, card._id!);
-      // card.likedBy.push(user._id!);
-      // processPointsForLike(card, user, false);
       this.blogService.updateLikesForBlogAndUser(card, user, false);
     } else {
-      this.alertService.showError(`${-POINT_SYSTEM.CANCEL_BLOG_LIKE} points deducted for cancelling the like!`, ALERT_CATEGORIES.BLOG_LIKE, card._id!);
-      // deleteFromArray(user._id!, card.likedBy);
-      // processPointsForLike(card, user, true);
       this.blogService.updateLikesForBlogAndUser(card, user, true);
     }
   }
@@ -60,7 +53,6 @@ export class BlogSpaceComponent implements OnInit {
   getPaginatedBlogCards() {
     this.loadingMore = true;
     this.blogService.getBlogs(this.blogPaginator.currentPage + 1, this.blogPaginator.itemsPerPage).
-    // pipe(delay(3000)).
     subscribe((page: BlogCard[]) => {
         this.processNewPage(page);
         this.newBlogPageLoading = false;
